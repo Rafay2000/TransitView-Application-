@@ -1,4 +1,6 @@
 # TransitView-Application-
-Software Engineering og Testing 2025 
+Software Engineering og Testing 2025 - MAIN BRANCH
 
-Alt av synlige koder skal vises frem her
+Her legges kun godkjente sprints som er klare for implementering. Denne skal alltid være stabil, og brukes til å vise frem ferdig kode.
+
+
