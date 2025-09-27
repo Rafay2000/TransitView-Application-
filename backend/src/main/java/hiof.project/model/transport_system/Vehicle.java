@@ -1,4 +1,4 @@
-package swe2025.hiof.transitview.app.model;
+package hiof.project.model.transport_system;
 
 public abstract class Vehicle {
 
