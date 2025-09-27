@@ -1,4 +1,4 @@
 TransitView-Application-
-Software Engineering og Testing 2025 - MAIN BRANCH
+Software Engineering og Testing 2025 - DEVELOP BRANCH
 
-Her legges kun godkjente sprints som er klare for implementering. Denne skal alltid være stabil, og brukes til å vise frem ferdig kode.
+Her legges ferdig utviklede sprints som skal testes og debugges. Dette er “arbeidsbranch” hvor vi kan eksperimentere med Java/MySQL/HTMLS/Js og CSS-kode, fikse bugs og teste funksjonalitet.
