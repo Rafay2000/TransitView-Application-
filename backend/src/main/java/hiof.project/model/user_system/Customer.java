@@ -1,5 +1,4 @@
 package hiof.project.model.user_system;
 
-public interface Authorization {
-
+public class Customer {
 }

@@ -1,4 +1,4 @@
 package hiof.project.model.transport_system;
 
-public interface Schedule {
+public class Trip {
 }

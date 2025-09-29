@@ -15,6 +15,10 @@ public abstract class Vehicle {
         this.capacity = capacity;
     }
 
+    public void vehicleMaintenanceInfo() {
+
+    }
+
     public int getVehicleId() {
         return vehicleId;
     }
