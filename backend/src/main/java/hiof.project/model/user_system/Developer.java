@@ -1,9 +1,15 @@
 package hiof.project.model.user_system;
 
-public class Developer {
+public class Developer extends Role {
 
-    //Display user info for debugging, testing and verification
+    //Constructor for developer
+    public Developer(int userId, String userName, String firstName, String lastname, String role) {
+        super(userId, userName, firstName, lastname, role);
+    }
+
+    //Display developer info for debugging, testing and verification
+    @Override
     public String fullUserInfo() {
-        return super.toString();
+        return super.fullUserInfo();
     }
 }

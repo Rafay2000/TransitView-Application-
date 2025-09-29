@@ -38,6 +38,12 @@ public abstract class Role {
         return role;
     }
 
+    //Formats fullName and lastName in one line
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+
     // Setters
     public void setUserId(int userId) {
         this.userId = userId;
@@ -59,11 +65,15 @@ public abstract class Role {
         this.role = role;
     }
 
-    //Display full info on role
+    //Display full name with username and assigned role
     @Override
     public String toString() {
-        return "Role{" +
-                "userId=" + userId +
+        return getFullName() + " | Brukernavn: " + userName + " - Rolle: " + role;
+    }
+
+    //Display full info on specific role made for subclasses for debugging and testing
+    public String fullUserInfo() {
+        return "Role{userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
