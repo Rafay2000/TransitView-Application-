@@ -41,7 +41,7 @@ public class Stop {
         this.distanceInKm = distanceInKm;
     }
 
-    public void setTimeToNextStop(int timeToNext) {
+    public void setTimeToNextStop(int timeToNextStop) {
         this.timeToNextStop = timeToNextStop;
     }
 
