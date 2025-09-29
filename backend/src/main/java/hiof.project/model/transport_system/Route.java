@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class Route {
 
-    private int routeId;
+    private final int routeId;
     private String routeName;
-    private ArrayList<Stops> stops;
+    private ArrayList<Stop> stops;
 
-    public Route(int routeId, String routeName, ArrayList<Stops> stops) {
+    public Route(int routeId, String routeName, ArrayList<Stop> stops) {
         this.routeId = routeId;
         this.routeName = routeName;
         this.stops = stops;
@@ -23,26 +23,22 @@ public class Route {
         return routeName;
     }
 
-    public ArrayList<Stops> getStops() {
+    public ArrayList<Stop> getStops() {
         return stops;
     }
 
     //Setters
-    public void setRouteId(int routeId) {
-        this.routeId = routeId;
-    }
-
     public void setRouteName(String routeName) {
         this.routeName = routeName;
     }
 
     //Add one individual bus stop to the list
-    public void addOneStopToRoute (Stops stop) {
+    public void addOneStopToRoute (Stop stop) {
         stops.add(stop);
     }
 
     //Add multiple bus stops to the list
-    public void addMultipleStopsToRoute (ArrayList<Stops> multipleStops) {
+    public void addMultipleStopsToRoute (ArrayList<Stop> multipleStops) {
         stops.addAll(multipleStops);
     }
 

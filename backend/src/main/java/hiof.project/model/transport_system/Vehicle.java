@@ -2,7 +2,7 @@ package hiof.project.model.transport_system;
 
 public abstract class Vehicle {
 
-    private int vehicleId;
+    private final int vehicleId;
     private String vehicleName;
     private String vehicleType;
     private int capacity;
@@ -19,38 +19,37 @@ public abstract class Vehicle {
 
     }
 
+    //Setters
     public int getVehicleId() {
         return vehicleId;
-    }
-
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
     }
 
     public String getVehicleName() {
         return vehicleName;
     }
 
-    public void setVehicleId(String vehicleName) {
-        this.vehicleName = vehicleName;
-    }
-
     public String getVehicleType() {
         return vehicleType;
-    }
-
-    public void setVehicleType(String vehicleType) {
-        this.vehicleType = vehicleType;
     }
 
     public int getCapacity() {
         return capacity;
     }
 
+    //Setters
+    public void setVehicleName(String vehicleName) {
+        this.vehicleName = vehicleName;
+    }
+
+    public void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
+    //Display full vehicle info for debugging, testing and verification
     @Override
     public String toString() {
         return "Vehicle{" +

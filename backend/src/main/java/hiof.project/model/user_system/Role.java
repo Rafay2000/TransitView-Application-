@@ -2,7 +2,7 @@ package hiof.project.model.user_system;
 
 public abstract class Role {
 
-    private int userId;
+    private final int userId;
     private String userName;
     private String firstName;
     private String lastName;
@@ -45,10 +45,6 @@ public abstract class Role {
 
 
     // Setters
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public void setUserName(String userName) {
         this.userName = userName;
     }
