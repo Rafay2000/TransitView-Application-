@@ -56,8 +56,13 @@ public class Stop {
 
     @Override
     public String toString() {
-        return stopName;
+        return stopName
+                + " - ankomst: %s / avreise %s til %s\n"
+                + "**(Estimert kjøretur " + timeToNextStop
+                + " min / " + distanceInKm
+                + " KM avstand / \"" + description + "\")**";
     }
+
 
     public String fullStopInfo() {
         return "Stop{" +

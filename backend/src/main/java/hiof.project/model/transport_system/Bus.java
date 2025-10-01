@@ -10,8 +10,9 @@ public class Bus extends Vehicle {
     //Display bus info to the user
     @Override
     public String toString() {
-        return getVehicleName() + " | Bus type: " + getVehicleType() + " | " + getCapacity() + " seter";
+        return getVehicleName() + " | Buss type: " + getVehicleType() + " | " + getCapacity() + " seter";
     }
+
 
     //Display bus info for debugging, testing and verification
     public String fullVehicleInfo() {

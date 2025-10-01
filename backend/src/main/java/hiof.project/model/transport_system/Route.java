@@ -4,21 +4,15 @@ import java.util.ArrayList;
 
 public class Route {
 
-    private final int routeId;
     private String routeName;
     private ArrayList<Stop> stops;
 
-    public Route(int routeId, String routeName, ArrayList<Stop> stops) {
-        this.routeId = routeId;
+    public Route(String routeName, ArrayList<Stop> stops) {
         this.routeName = routeName;
         this.stops = stops;
     }
 
     //Getters
-    public int getRouteId() {
-        return routeId;
-    }
-
     public String getRouteName() {
         return routeName;
     }
@@ -45,12 +39,12 @@ public class Route {
     //Display route info to the user
     @Override
     public String toString() {
-        return "Rute Nummer " + routeId + " | " + routeName;
+        return "Rute Nummer " + routeName + " | " + stops;
     }
 
     //Display route info for debugging, testing and verification
     public String fullRouteInfo() {
-        return routeId + " | " + routeName + " | Stops: " + stops;
+        return  routeName + " | Stops: " + stops;
     }
 }
 
