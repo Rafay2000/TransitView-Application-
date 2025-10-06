@@ -1,4 +1,4 @@
-package hiof.project.model.transport_system;
+package hiof_project.model.transport_system;
 
 import java.util.ArrayList;
 
@@ -39,8 +39,10 @@ public class Route {
     //Display route info to the user
     @Override
     public String toString() {
-        return "Rute Nummer " + routeName + " | " + stops;
+        String result = "<< Rute \"" + routeName + "\" >>\n";
+        return result;
     }
+
 
     //Display route info for debugging, testing and verification
     public String fullRouteInfo() {

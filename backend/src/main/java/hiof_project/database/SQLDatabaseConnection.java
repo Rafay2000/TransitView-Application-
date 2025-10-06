@@ -1,4 +1,4 @@
-package hiof.project.database;
+package hiof_project.database;
 
 public class SQLDatabaseConnection {
 }

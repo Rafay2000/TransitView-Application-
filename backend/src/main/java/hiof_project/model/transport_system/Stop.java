@@ -1,4 +1,4 @@
-package hiof.project.model.transport_system;
+package hiof_project.model.transport_system;
 
 public class Stop {
 
@@ -6,19 +6,19 @@ public class Stop {
     private String stopName;
     private double distanceInKm;
     private int timeToNextStop;
-    private String description;
+    private String descriptionNextStop;
 
     public Stop(int stopId, String stopName) {
         this.stopId = stopId;
         this.stopName = stopName;
     }
 
-    public Stop(int stopId, String stopName, double distanceInKm, int timeToNextStop, String description) {
+    public Stop(int stopId, String stopName, double distanceInKm, int timeToNextStop, String descriptionNextStop) {
         this.stopId = stopId;
         this.stopName = stopName;
         this.distanceInKm = distanceInKm;
         this.timeToNextStop = timeToNextStop;
-        this.description = description;
+        this.descriptionNextStop = descriptionNextStop;
     }
 
     public String getStopNameName() {
@@ -33,8 +33,8 @@ public class Stop {
         return timeToNextStop;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescriptionNextStop() {
+        return descriptionNextStop;
     }
 
     public void setDistanceInKm(double distanceInKm) {
@@ -45,8 +45,8 @@ public class Stop {
         this.timeToNextStop = timeToNextStop;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String descriptionNextStop) {
+        this.descriptionNextStop = descriptionNextStop;
     }
 
     // Placeholder method to calculate time till next stop (sprint 2 feature)
@@ -56,11 +56,11 @@ public class Stop {
 
     @Override
     public String toString() {
-        return stopName
-                + " - ankomst: %s / avreise %s til %s\n"
-                + "**(Estimert kjøretur " + timeToNextStop
-                + " min / " + distanceInKm
-                + " KM avstand / \"" + description + "\")**";
+        String desc = (descriptionNextStop != null && !descriptionNextStop.isEmpty()) ? "\""
+                + descriptionNextStop + "\"" : "Ikke tilgjengelig stopplass info";
+        return stopName + "\n"
+                + "**(Estimert kjøretur " + timeToNextStop + " min / "
+                + distanceInKm + " KM avstand / " + desc + ")**";
     }
 
 
@@ -70,7 +70,7 @@ public class Stop {
                 ", stopName='" + stopName + '\'' +
                 ", distanceInKm=" + distanceInKm +
                 ", timeToNextStop=" + timeToNextStop +
-                ", description='" + description + '\'' +
+                ", description='" + descriptionNextStop + '\'' +
                 '}';
     }
 }

@@ -1,4 +1,4 @@
-package hiof.project.repository;
+package hiof_project.repository;
 
 public class CSVRepository implements RepositoryInterface {
 }
