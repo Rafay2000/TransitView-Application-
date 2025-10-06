@@ -1,4 +1,0 @@
-package hiof.project.model.transport_system;
-
-public class Bus {
-}

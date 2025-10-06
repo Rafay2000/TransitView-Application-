@@ -1,4 +1,3 @@
-TransitView-Application-
-Software Engineering og Testing 2025 - MAIN BRANCH
+Software Engineering og Testing 2025 - FEATURES BRANCH
 
-Her legges kun godkjente sprints som er klare for implementering. Denne skal alltid være stabil, og brukes til å vise frem ferdig kode.
+Her legges funksjoner og ideer vi har for tjenesten. Alt arbeid og programmering skal utføres her; legger til API, databasehåndtering, React-koder og alt annet innen backend for utvikling og desingprosess. Ferdigutvikelt funskjon merges inn til neste branch "develop".
