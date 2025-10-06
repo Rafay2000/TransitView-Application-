@@ -1,0 +1,16 @@
+@startuml
+actor Customer
+
+Customer -> Trip : velger rute og tidspunkt
+Trip -> Route : henter rutenavn
+Route -> Stop : henter stopp-liste
+Stop -> Schedule : henter ankomst- og avreisetid
+Stop -> Bus : henter bussinformasjon
+
+Route --> Trip : returnerer ruteinfo
+Stop --> Route : returnerer stopp-liste
+Schedule --> Stop : returnerer tidspunkter
+Bus --> Stop : returnerer bussdetaljer
+
+Trip -> Customer : viser oversikt i formatert stil
+@enduml
