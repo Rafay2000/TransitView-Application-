@@ -7,20 +7,20 @@ import java.util.ArrayList;
 
 public class Schedule {
 
-    private ArrayList<ScheduleTimer> scheduleTimers;
+    private ArrayList<ScheduleTimer> scheduleTimer;
     private LocalDate definedDate;
 
-    public Schedule(ArrayList<ScheduleTimer> scheduleTimers, LocalDate definedDate) {
-        this.scheduleTimers = scheduleTimers;
+    public Schedule(ArrayList<ScheduleTimer> scheduleTimer, LocalDate definedDate) {
+        this.scheduleTimer = scheduleTimer;
         this.definedDate = definedDate;
     }
 
-    public ArrayList<ScheduleTimer> getScheduleTimers() {
-        return scheduleTimers;
+    public ArrayList<ScheduleTimer> getScheduleTimer() {
+        return scheduleTimer;
     }
 
-    public void setScheduleTimers(ArrayList<ScheduleTimer> scheduleTimers) {
-        this.scheduleTimers = scheduleTimers;
+    public void setScheduleTimer(ArrayList<ScheduleTimer> scheduleTimer) {
+        this.scheduleTimer = scheduleTimer;
     }
 
     public LocalDate getDefinedDate() {

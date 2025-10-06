@@ -30,7 +30,7 @@ public class Trip {
         output += "--------------------------------------------------\n";
 
         var stops = route.getStops();
-        var timers = schedule.getScheduleTimers();
+        var timers = schedule.getScheduleTimer();
 
         for (int i = 0; i < stops.size(); i++) {
             Stop s = stops.get(i);
@@ -38,9 +38,9 @@ public class Trip {
 
             String arrival = (timer.getArrival() != null) ? timer.getArrival().toString() : "N/A";
             String departure = (timer.getDeparture() != null) ? timer.getDeparture().toString() : "N/A";
-            String nextStop = (i + 1 < stops.size()) ? stops.get(i + 1).getStopNameName() : stops.get(0).getStopNameName();
+            String nextStop = (i + 1 < stops.size()) ? stops.get(i + 1).getStopName() : stops.get(0).getStopName();
 
-            output += "Ankomst: " + arrival + " på " + s.getStopNameName() +
+            output += "Ankomst: " + arrival + " på " + s.getStopName() +
                     " | Avreise: " + departure + " - til " + nextStop + "\n";
 
             output += "**(Estimert kjøretur til neste stopp: " +
