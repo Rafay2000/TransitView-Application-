@@ -1,0 +1,50 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+left to right direction
+
+class User {
+  name
+  email
+  location
+}
+
+class Trip {
+  time
+  status
+  route
+  stops
+}
+
+
+class Route {
+  name
+  code
+  direction
+}
+
+class Stop {
+  name
+  location
+}
+
+class Schedule {
+  arrival
+  departure
+  date
+}
+
+class Bus {
+  location
+  isWheelchairfriendly
+}
+
+
+User     "1" o-- "0..*" Trip
+Trip     "1..*" --> "1"    Route
+Route    "1..*" o-- "1..*" Stop
+Stop     "1..*" --> "0..*" Schedule
+Route    "1"    --> "1..*" Bus
+Trip     "0..*" --> "1..*" Stop
+
+@enduml
