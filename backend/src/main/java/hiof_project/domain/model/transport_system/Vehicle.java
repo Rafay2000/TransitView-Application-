@@ -1,4 +1,4 @@
-package hiof_project.model.transport_system;
+package hiof_project.domain.model.transport_system;
 
 public abstract class Vehicle {
 

@@ -1,4 +1,4 @@
-package hiof_project.model.user_system;
+package hiof_project.domain.model.user_system;
 
 public class Admin extends Role {
 

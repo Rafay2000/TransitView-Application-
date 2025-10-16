@@ -1,9 +1,7 @@
 package hiof_project;
 
-import hiof_project.model.transport_system.*;
-import hiof_project.model.user_system.*;
-import hiof_project.model.transport_system.*;
-import hiof_project.model.user_system.Customer;
+import hiof_project.domain.model.transport_system.*;
+import hiof_project.domain.model.user_system.Customer;
 
 import java.time.LocalTime;
 import java.time.LocalDate;
