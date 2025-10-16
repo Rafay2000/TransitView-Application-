@@ -4,15 +4,21 @@ import java.util.ArrayList;
 
 public class Route {
 
+    private int routeId;
     private String routeName;
     private ArrayList<Stop> stops;
 
-    public Route(String routeName, ArrayList<Stop> stops) {
+    public Route(int routeId, String routeName, ArrayList<Stop> stops) {
+        this.routeId = routeId;
         this.routeName = routeName;
         this.stops = stops;
     }
 
     //Getters
+    public int getRouteId() {
+        return routeId;
+    }
+
     public String getRouteName() {
         return routeName;
     }

@@ -21,10 +21,14 @@ public class Stop {
         this.descriptionNextStop = descriptionNextStop;
     }
 
-    public String getStopNameName() {
-        return stopName;
-
+    public int getStopId() {
+        return stopId;
     }
+
+    public String getStopName() {
+        return stopName;
+    }
+
     public double getDistanceInKm() {
         return distanceInKm;
     }

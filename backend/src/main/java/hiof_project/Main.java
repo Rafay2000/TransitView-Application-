@@ -29,7 +29,7 @@ public class Main {
         stops.add(ostfoldhallen);
         stops.add(greaaker);
 
-        Route route = new Route("FR-GR03", stops);
+        Route route = new Route(1,"FR-GR03", stops);
 
         // Opprett tidsplan (Schedule) med ScheduleTimer
         ArrayList<ScheduleTimer> frgr03 = new ArrayList<>();
