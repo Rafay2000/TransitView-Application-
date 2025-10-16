@@ -1,6 +1,5 @@
-package hiof_project.model.transport_system;
+package hiof_project.domain.model.transport_system;
 
-import java.time.LocalTime;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
