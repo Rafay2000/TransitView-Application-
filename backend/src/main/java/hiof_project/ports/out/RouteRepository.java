@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import hiof_project.domain.exception.RepositoryException;
 
-//CRUD operasjoner for Route tabellen i DB
+//CRUD operasjoner for Route tabellen i databasen
 public interface RouteRepository {
     void createRoute(Route route) throws RepositoryException; //opprette rute
     void saveRoute(Route route) throws RepositoryException; //lagre rute

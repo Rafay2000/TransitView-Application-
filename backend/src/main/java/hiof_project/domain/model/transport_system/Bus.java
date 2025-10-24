@@ -2,7 +2,7 @@ package hiof_project.domain.model.transport_system;
 
 public class Bus extends Vehicle {
 
-    //Bus constructor
+    //Bus konstruktør
     public Bus (int vehicleId, String vehicleName, String vehicleType, int capacity) {
         super(vehicleId, vehicleName, vehicleType, capacity);
     }

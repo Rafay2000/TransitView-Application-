@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.ArrayList;
 import java.util.Optional;
 
-// Interface for kommunisering med db. Brukes CRUD operasjoner
+// Interface for kommunisering med databasen. Brukes CRUD operasjoner
 public interface UserRepository extends JpaRepository<User, Long> {
 
     void createUser(User user) throws RepositoryException; //opprette bruker

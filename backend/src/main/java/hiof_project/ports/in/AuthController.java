@@ -34,7 +34,7 @@ public class AuthController {
         boolean accepted = authService.login(req.email(), req.password());
 
         if (accepted) {
-            return "Vellykket innlogging";
+            return "Vellykket innlogging!";
         } else {
             return "Feil epost eller passord";
         }

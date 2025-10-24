@@ -4,7 +4,7 @@ public class Admin extends Role {
 
     private String password;
 
-    //Constructor for admin with password
+    //Constructor for admin with password.
     public Admin(int userId, String userName, String password, String firstName, String lastname, String role) {
         super(userId, userName, firstName, lastname, role);
         this.password = password;

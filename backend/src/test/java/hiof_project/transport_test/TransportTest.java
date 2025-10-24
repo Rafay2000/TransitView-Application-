@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TransportTest {
 
+    //Test område
     @Test
     void testStop() {
         Stop stop = new Stop(1, "Fredrikstad Busstasjon", 3.5, 10, "Stopper ved Rema");

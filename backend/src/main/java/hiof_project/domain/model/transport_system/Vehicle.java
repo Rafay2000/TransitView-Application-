@@ -7,7 +7,7 @@ public abstract class Vehicle {
     private String vehicleType;
     private int capacity;
 
-
+    //Kontruktør
     public Vehicle(int vehicleId, String vehicleName, String vehicleType, int capacity) {
         this.vehicleId = vehicleId;
         this.vehicleName = vehicleName;

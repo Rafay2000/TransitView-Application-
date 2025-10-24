@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import hiof_project.domain.exception.RepositoryException;
 
-//CRUD operasjoner for Trip tabellen i DB
+//CRUD operasjoner for Trip tabellen i databasen
 public interface TripRepository {
     void createTrip(Trip trip) throws RepositoryException; //opprette tur
     void saveTrip(Trip trip) throws RepositoryException; //lagre tur

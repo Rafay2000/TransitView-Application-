@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class IntegrationTest {
 
+    //test område
     @Test
     void testFullTripScenario() {
         // Opprett stopp

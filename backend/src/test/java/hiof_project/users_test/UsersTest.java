@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UsersTest {
 
+    //Test område
     @Test
     void testBruker() {
         Customer bruker = new Customer(1, "testUser", "Test", "User", "Customer");

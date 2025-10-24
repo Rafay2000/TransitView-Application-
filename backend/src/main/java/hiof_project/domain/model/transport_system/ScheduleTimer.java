@@ -7,6 +7,7 @@ public class ScheduleTimer {
     private LocalTime arrival;
     private LocalTime departure;
 
+    //Konstruktør
     public ScheduleTimer(LocalTime arrival, LocalTime departure) {
         this.arrival = arrival;
         this.departure = departure;

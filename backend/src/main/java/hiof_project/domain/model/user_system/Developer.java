@@ -2,7 +2,7 @@ package hiof_project.domain.model.user_system;
 
 public class Developer extends Role {
 
-    //Constructor for developer
+    //Constructor for developer.
     public Developer(int userId, String userName, String firstName, String lastname, String role) {
         super(userId, userName, firstName, lastname, role);
     }

@@ -14,7 +14,7 @@ public class Route {
         this.stops = stops;
     }
 
-    //Getters
+    //Getter
     public int getRouteId() {
         return routeId;
     }
