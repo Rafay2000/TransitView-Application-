@@ -8,7 +8,7 @@ public class Stop {
     private int timeToNextStop;
     private String descriptionNextStop;
 
-    //Kontruktør
+    //Kontruktør.
     public Stop(int stopId, String stopName) {
         this.stopId = stopId;
         this.stopName = stopName;

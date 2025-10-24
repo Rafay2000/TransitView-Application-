@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import hiof_project.domain.exception.RepositoryException;
 
-//CRUD operasjoner for Bus tabellen i databasen
+//CRUD operasjoner for Bus tabellen i databasen.
 public interface RealtimeSchedulingRepository {
     void createUpdatedTime(RealtimeScheduling update) throws RepositoryException; //opprette oppdatert sanntider
     void saveUpdatedTime(RealtimeScheduling update) throws RepositoryException; //lagre oppdatert sanntider

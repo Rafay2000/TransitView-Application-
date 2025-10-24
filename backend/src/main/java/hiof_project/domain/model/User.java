@@ -2,7 +2,7 @@ package hiof_project.domain.model;
 
 import jakarta.persistence.*;
 
-// Klasse for brukere i db, @Entity gjør det til en tabell.
+// Klasse for brukere i db, @Entity gjør det til en tabell..
 @Entity
 @Table(name = "users")
 public class User {

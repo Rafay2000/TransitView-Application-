@@ -5,7 +5,7 @@ public class Customer extends Role {
     private String email;
     private String password;
 
-    //Constructor for customer with email and password.
+    //Constructor for customer with email and password..
     public Customer(int userId, String userName, String email, String password,
                     String firstName, String lastname, String role) {
         super(userId, userName, firstName, lastname, role);

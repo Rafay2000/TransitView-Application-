@@ -9,7 +9,7 @@ public class Schedule {
     private ArrayList<ScheduleTimer> scheduleTimer;
     private LocalDate definedDate;
 
-    //Kontruktør
+    //Kontruktør.
     public Schedule(ArrayList<ScheduleTimer> scheduleTimer, LocalDate definedDate) {
         this.scheduleTimer = scheduleTimer;
         this.definedDate = definedDate;

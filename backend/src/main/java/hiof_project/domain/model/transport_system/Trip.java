@@ -7,7 +7,7 @@ public class Trip {
     private Schedule schedule;
     private Bus bus;
 
-    //Kontruktør
+    //Kontruktør.
     public Trip(int tripId, Route route, Schedule schedule, Bus bus) {
         this.tripId = tripId;
         this.route = route;

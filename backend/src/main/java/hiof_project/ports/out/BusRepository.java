@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import hiof_project.domain.exception.RepositoryException;
 
-//CRUD operasjoner for Bus tabellen i databasen
+//CRUD operasjoner for Bus tabellen i databasen.
 public interface BusRepository {
     void createBus(Bus bus) throws RepositoryException; //opprette buss
     void saveBus(Bus bus) throws RepositoryException; //lagre buss

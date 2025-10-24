@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import hiof_project.domain.exception.RepositoryException;
 
-//CRUD operasjoner for Stops tabellen i databasen
+//CRUD operasjoner for Stops tabellen i databasen.
 public interface StopRepository {
     void createStop(Stop stop) throws RepositoryException; //opprette holdeplass
     void saveStop(Stop stop) throws RepositoryException; //lagre holdeplass

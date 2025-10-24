@@ -10,7 +10,7 @@ public class RealtimeScheduling {
     private LocalTime updatedDeparture;
     private LocalTime updatedArrival;
 
-    // Konstruktør for sanntid oppdatering
+    // Konstruktør for sanntid oppdatering.
     public RealtimeScheduling(int realtimeIdid, int tripId, int stopId, LocalTime updatedDeparture, LocalTime updatedArrival) {
         this.realtimeId = realtimeIdid;
         this.tripId = tripId;

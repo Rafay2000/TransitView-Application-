@@ -8,7 +8,7 @@ public abstract class Role {
     private String lastName;
     private String role;
 
-    //Default role constructor for "Customer", "Admin" and "Developer".
+    //Default role constructor for "Customer", "Admin" and "Developer"..
     public Role(int userId, String userName, String firstName, String lastname, String role) {
         this.userId = userId;
         this.userName = userName;
