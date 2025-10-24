@@ -1,10 +1,7 @@
 package hiof_project;
 
 import hiof_project.domain.model.transport_system.*;
-import hiof_project.domain.model.user_system.Customer;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.hiof_project.domain.model.user_system.Customer;
 
 import java.time.LocalTime;
 import java.time.LocalDate;
