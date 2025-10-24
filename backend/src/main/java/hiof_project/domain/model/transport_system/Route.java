@@ -1,4 +1,4 @@
-package java.hiof_project.domain.model.transport_system;
+package hiof_project.domain.model.transport_system;
 
 import java.util.ArrayList;
 

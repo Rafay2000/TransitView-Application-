@@ -1,7 +1,7 @@
 package hiof_project.domain.service;
 
 import hiof_project.domain.model.User;
-import hiof_project.infrastructure.adapters.UserRepository;
+import hiof_project.ports.out.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

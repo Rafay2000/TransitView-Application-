@@ -1,7 +1,7 @@
-package java.hiof_project.integration_test;
+package hiof_project.integration_test;
 
-import java.hiof_project.domain.model.transport_system.*;
-import java.hiof_project.domain.model.user_system.*;
+import hiof_project.domain.model.transport_system.*;
+import hiof_project.domain.model.user_system.*;
 
 import org.junit.jupiter.api.Test;
 

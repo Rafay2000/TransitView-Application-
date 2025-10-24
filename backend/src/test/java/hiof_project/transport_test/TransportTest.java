@@ -1,6 +1,6 @@
-package java.hiof_project.transport_test;
+package hiof_project.transport_test;
 
-import java.hiof_project.domain.model.transport_system.*;
+import hiof_project.domain.model.transport_system.*;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.time.LocalDate;

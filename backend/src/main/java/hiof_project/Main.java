@@ -1,7 +1,7 @@
-package java.hiof_project;
+package hiof_project;
 
-import java.hiof_project.domain.model.transport_system.*;
-import java.hiof_project.domain.model.user_system.Customer;
+import hiof_project.domain.model.transport_system.*;
+import hiof_project.domain.model.user_system.Customer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

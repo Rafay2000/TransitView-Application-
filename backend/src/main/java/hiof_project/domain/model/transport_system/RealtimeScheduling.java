@@ -1,18 +1,18 @@
-package java.hiof_project.domain.model.transport_system;
+package hiof_project.domain.model.transport_system;
 
 import java.time.LocalTime;
 
 public class RealtimeScheduling {
 
-    private int id;             // PK i databasen
+    private int realtimeId;             // PK i databasen
     private int tripId;         // FK til Trip
     private int stopId;         // FK til Stop
     private LocalTime updatedDeparture;
     private LocalTime updatedArrival;
 
     // Konstruktør
-    public RealtimeScheduling(int id, int tripId, int stopId, LocalTime updatedDeparture, LocalTime updatedArrival) {
-        this.id = id;
+    public RealtimeScheduling(int realtimeIdid, int tripId, int stopId, LocalTime updatedDeparture, LocalTime updatedArrival) {
+        this.realtimeId = realtimeIdid;
         this.tripId = tripId;
         this.stopId = stopId;
         this.updatedDeparture = updatedDeparture;
@@ -20,8 +20,8 @@ public class RealtimeScheduling {
     }
 
     // Gettere og settere
-    public int getId() {
-        return id;
+    public int getRealtimeId() {
+        return realtimeId;
     }
 
     public int getTripId() {
@@ -40,8 +40,8 @@ public class RealtimeScheduling {
         return updatedArrival;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setRealtimeId(int realtimeId) {
+        this.realtimeId = realtimeId;
     }
 
     public void setTripId(int tripId) {

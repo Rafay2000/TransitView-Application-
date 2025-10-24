@@ -1,15 +1,16 @@
-package java.hiof_project.ports.out;
+package hiof_project.ports.out;
 
-import java.hiof_project.domain.model.transport_system.Route;
+import hiof_project.domain.model.transport_system.Route;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.hiof_project.domain.exception.RepositoryException;
+import hiof_project.domain.exception.RepositoryException;
 
+//CRUD operasjoner for Route tabellen i DB
 public interface RouteRepository {
-    void createRoute(Route route) throws RepositoryException;
-    void saveRoute(Route route) throws RepositoryException;
-    void updateRoute(Route route) throws RepositoryException;
-    void deleteRoute(int id) throws RepositoryException;
-    Optional<Route> getByRouteId(int id) throws RepositoryException;
-    ArrayList<Route> getAllRoutes() throws RepositoryException;
+    void createRoute(Route route) throws RepositoryException; //opprette rute
+    void saveRoute(Route route) throws RepositoryException; //lagre rute
+    void updateRoute(Route route) throws RepositoryException; //oppdater rute
+    void deleteRoute(int routeId) throws RepositoryException; //slett rute basert på IDen
+    Optional<Route> getByRouteId(int routeId) throws RepositoryException; //hent rute basert på IDen
+    ArrayList<Route> getAllRoutes() throws RepositoryException; //hent alle ruter fra db
 }
