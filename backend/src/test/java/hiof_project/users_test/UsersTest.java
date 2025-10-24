@@ -1,6 +1,6 @@
-package hiof_project.users_test;
+package java.hiof_project.users_test;
 
-import hiof_project.model.user_system.*;
+import java.hiof_project.domain.model.user_system.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

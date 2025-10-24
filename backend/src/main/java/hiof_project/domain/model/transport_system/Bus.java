@@ -1,4 +1,4 @@
-package hiof_project.domain.model.transport_system;
+package java.hiof_project.domain.model.transport_system;
 
 public class Bus extends Vehicle {
 
@@ -12,8 +12,6 @@ public class Bus extends Vehicle {
     public String toString() {
         return getVehicleName() + " | Buss type: " + getVehicleType() + " | " + getCapacity() + " seter";
     }
-
-
 
     //Display bus info for debugging, testing and verification
     public String fullVehicleInfo() {
