@@ -11,7 +11,7 @@ public interface RealtimeSchedulingRepository {
     void saveUpdatedTime(RealtimeScheduling update) throws RepositoryException; //lagre oppdatert sanntider
     void updateUpdatedTime(RealtimeScheduling update) throws RepositoryException; //oppdater sanntider
     void deleteUpdatedTime(int realtimeId) throws RepositoryException; //slett oppdatert sanntid basert på IDen
-    Optional<RealtimeScheduling> getByUpdatedTimeId(int realtimeId) throws RepositoryException; //hent oppdatert sanntid IDen
+    Optional<RealtimeScheduling> getByUpdatedTimeId(int realtimeId) throws RepositoryException; //hent sanntid IDen
     ArrayList<RealtimeScheduling> getAllUpdatedTime() throws RepositoryException; //hent alle oppdaterte sanntid fra db
 
     //finn sanntid fra tripId og stopId i databasen
