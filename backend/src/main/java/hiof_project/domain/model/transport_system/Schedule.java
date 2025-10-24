@@ -1,4 +1,4 @@
-package hiof_project.domain.model.transport_system;
+package java.hiof_project.domain.model.transport_system;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

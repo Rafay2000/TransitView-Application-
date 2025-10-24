@@ -1,4 +1,4 @@
-package hiof_project.domain.model.user_system;
+package java.hiof_project.domain.model.user_system;
 
 public class Developer extends Role {
 
