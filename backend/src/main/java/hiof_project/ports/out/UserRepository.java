@@ -14,7 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     /*void createUser(User user) throws RepositoryException; //opprette bruker
     void saveUser(User user) throws RepositoryException; //lagre bruker
     void updateUser(User user) throws RepositoryException; //oppdater bruker
-    void deleteUser(User user) throws RepositoryException; //slett bruker basert på IDen
+    void deleteUserId(User user) throws RepositoryException; //slett bruker basert på IDen
     Optional<Route> getByUserId(int userId) throws RepositoryException; //hent bruker basert på IDen
     ArrayList<Route> getAllUsers() throws RepositoryException; //hent alle brukere fra db*/
 

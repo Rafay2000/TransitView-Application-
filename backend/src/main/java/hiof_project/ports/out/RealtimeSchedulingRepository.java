@@ -10,7 +10,7 @@ public interface RealtimeSchedulingRepository {
     void createUpdatedTime(RealtimeScheduling update) throws RepositoryException; //opprette oppdatert sanntider
     void saveUpdatedTime(RealtimeScheduling update) throws RepositoryException; //lagre oppdatert sanntider
     void updateUpdatedTime(RealtimeScheduling update) throws RepositoryException; //oppdater sanntider
-    void deleteUpdatedTime(int realtimeId) throws RepositoryException; //slett oppdatert sanntid basert på IDen
+    void deleteUpdatedTimeId(int realtimeId) throws RepositoryException; //slett oppdatert sanntid basert på IDen
     Optional<RealtimeScheduling> getByUpdatedTimeId(int realtimeId) throws RepositoryException; //hent sanntid IDen
     ArrayList<RealtimeScheduling> getAllUpdatedTime() throws RepositoryException; //hent alle oppdaterte sanntid fra db
 

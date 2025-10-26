@@ -10,7 +10,7 @@ public interface RouteRepository {
     void createRoute(Route route) throws RepositoryException; //opprette rute
     void saveRoute(Route route) throws RepositoryException; //lagre rute
     void updateRoute(Route route) throws RepositoryException; //oppdater rute
-    void deleteRoute(int routeId) throws RepositoryException; //slett rute basert på IDen
+    void deleteRouteId(int routeId) throws RepositoryException; //slett rute basert på IDen
     Optional<Route> getByRouteId(int routeId) throws RepositoryException; //hent rute basert på IDen
     ArrayList<Route> getAllRoutes() throws RepositoryException; //hent alle ruter fra db
 }
