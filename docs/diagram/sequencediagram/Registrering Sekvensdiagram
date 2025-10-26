@@ -1,0 +1,21 @@
+@startuml
+title Sekvensdiagram – Registrering
+
+actor Bruker
+participant AuthController
+participant AuthService
+participant UserRepository
+database Database
+
+Bruker -> AuthController: POST /api/auth/register (email, password)
+AuthController -> AuthService: register(email, password)
+AuthService -> UserRepository: findByEmail(email)
+UserRepository -> Database: SELECT * FROM users WHERE email=?
+Database --> UserRepository: Optional.empty
+AuthService -> AuthService: encoder.encode(password)
+AuthService -> UserRepository: save(new User(email, passwordHash))
+UserRepository -> Database: INSERT INTO users (...)
+AuthService --> AuthController: OK
+AuthController --> Bruker: "Bruker registrert"
+
+@enduml

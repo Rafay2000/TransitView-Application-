@@ -1,0 +1,37 @@
+@startuml
+title Klassediagram - Innloggingssystem
+
+class User {
+  - Long id
+  - String email
+  - String passwordHash
+}
+
+interface UserRepository {
+  + Optional<User> findByEmail(String email)
+  + User save(User user)
+}
+
+class AuthService {
+  - UserRepository repo
+  - PasswordEncoder encoder
+  + void register(String email, String password)
+  + boolean login(String email, String password)
+}
+
+class AuthController {
+  - AuthService authService
+  + String register(AuthRequest req)
+  + String login(AuthRequest req)
+}
+
+class AuthRequest {
+  - String email
+  - String password
+}
+
+UserRepository <|.. "implements" JpaRepository
+AuthService --> UserRepository : bruker
+AuthController --> AuthService : kaller
+AuthRequest --> AuthController : brukes som input
+@enduml
