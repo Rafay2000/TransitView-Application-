@@ -13,7 +13,7 @@ const BusOption = ({ type, icon, isSelected, onClick }) => (
     <span className={styles.typeLabel}>{type}</span>
   </div>
 );
-
+// BusSelector komponenten
 const BusSelector = () => {
   const [selectedBus, setSelectedBus] = useState('Buss');
 
