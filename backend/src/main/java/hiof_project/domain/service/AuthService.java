@@ -20,6 +20,28 @@ public class AuthService {
 
     // Funksjon som registrerer bruker med epost og passord.
     public void register(String email, String password) {
+        // E-mail checker
+        if (email == null || email.isBlank() || !email.contains("@")) {
+            throw new IllegalArgumentException("Ugyldig e-postadresse");
+        }
+        if (repo.findByEmail(email).isPresent()) {
+            throw new IllegalArgumentException("E-postadressen er allerede registrert");
+        }
+        // Passord checker
+        if (password == null || password.length() < 8) {
+            throw new IllegalArgumentException("Passord må inneholde minst 8 tegn");
+        }
+        if (!password.matches(".*[A-Z].*")) {
+            throw new IllegalArgumentException("Passord må inneholde minst én stor bokstav");
+        }
+        if (!password.matches(".*[a-z].*")) {
+            throw new IllegalArgumentException("Passord må inneholde minst én liten bokstav");
+        }
+        if (!password.matches(".*\\d.*")) {
+            throw new IllegalArgumentException("Passord må inneholde minst ett tall");
+        }
+
+        // Oppretter bruker dersom ingen if "aktiveres"
         User u = new User();
         u.setEmail(email);
         u.setPasswordHash(encoder.encode(password));

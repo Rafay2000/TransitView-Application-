@@ -19,13 +19,17 @@ public class AuthController {
     }
 
     // Leser epost og passord fra JSON.
-    record AuthRequest(String email, String password) {}
+    public record AuthRequest(String email, String password) {}
 
     // Endepunkt registrering.
     @PostMapping("/register")
     public String register(@RequestBody AuthRequest req) {
-        authService.register(req.email(), req.password());
-        return "Bruker registrert";
+       try {
+           authService.register(req.email(), req.password());
+           return "Bruker registrert";
+       } catch (IllegalArgumentException e) {
+           return "Registrering feilet: " + e.getMessage();
+       }
     }
 
     // Endepunkt innlogging.
