@@ -22,7 +22,7 @@ public class BusRepositorySQL implements BusRepository {
     //Oppretter buss verdier basert på datatyper fra Bus klassen og legger det i SQL databasen
     @Override
     public void createBus(Bus bus) throws RepositoryException {
-        String sql = "INSERT INTO Bus (bus_id, bus_name, bus_type, capacity) VALUES (?, ?, ?, ?)";;
+        String sql = "INSERT INTO Bus (bus_id, bus_name, bus_type, capacity) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, bus.getVehicleId());
@@ -36,16 +36,32 @@ public class BusRepositorySQL implements BusRepository {
     }
 
     //Lagrer eller oppretter buss verdier basert på datatyper fra Bus klassen og legger det i SQL databasen
+    //Azure SQL måten
     @Override
     public void saveBus(Bus bus) throws RepositoryException {
-        String sql = "REPLACE INTO Bus (bus_id, bus_name, bus_type, capacity) VALUES (?, ?, ?, ?)";;
+        //Prøver å oppdatere radene først
+        String updateSql = "UPDATE Buses SET bus_name = ?, bus_type = ?, capacity = ? WHERE bus_id = ?";
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, bus.getVehicleId());
-            preparedStatement.setString(2, bus.getVehicleName());
-            preparedStatement.setString(3, bus.getVehicleType());
-            preparedStatement.setInt(4, bus.getCapacity());
-            preparedStatement.executeUpdate();
+        try (PreparedStatement updateStmt = connection.prepareStatement(updateSql)) {
+            updateStmt.setString(1, bus.getVehicleName());
+            updateStmt.setString(2, bus.getVehicleType());
+            updateStmt.setInt(3, bus.getCapacity());
+            updateStmt.setInt(4, bus.getVehicleId());
+
+            int affectedRows = updateStmt.executeUpdate();
+
+            //Hvis ingen rader ble oppdatert, sett inn ny rad og med alle datatypene
+            if (affectedRows == 0) {
+                String insertSql = "INSERT INTO Buses (bus_id, bus_name, bus_type, capacity) VALUES (?, ?, ?, ?)";
+                try (PreparedStatement insertStmt = connection.prepareStatement(insertSql)) {
+                    insertStmt.setInt(1, bus.getVehicleId());
+                    insertStmt.setString(2, bus.getVehicleName());
+                    insertStmt.setString(3, bus.getVehicleType());
+                    insertStmt.setInt(4, bus.getCapacity());
+                    insertStmt.executeUpdate();
+                }
+            }
+
         } catch (SQLException e) {
             throw new RepositoryException("ERROR: Could not save bus in database", e);
         }
