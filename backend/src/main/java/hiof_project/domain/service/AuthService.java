@@ -45,11 +45,11 @@ public class AuthService {
             throw new IllegalArgumentException("Passord må inneholde minst ett tall");
         }
 
-        Role customerRole = roleRepository.findByName("CUSTOMER");
+        String hashedPassword = passwordEncoder.encode(password);
+        Role defaultRole = roleRepository.findByName("CUSTOMER");
 
         // Oppretter bruker med CUSTOMER som basis-rolle
-        User user = new User();
-        user.setRole(customerRole);
+        User user = new User(email, hashedPassword, defaultRole);
         userRepository.save(user);
     }
 
