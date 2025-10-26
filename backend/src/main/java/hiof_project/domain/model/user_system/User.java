@@ -1,4 +1,4 @@
-package hiof_project.domain.model;
+package hiof_project.domain.model.user_system;
 
 import jakarta.persistence.*;
 
@@ -16,6 +16,18 @@ public class User {
     //Passord lagres som en hash istedetfor tekst av sikkerhetsårsaker
     private String passwordHash;
 
+    // Mange User-objekter kan ha én rolle
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    public User() {}
+
+    public User(String email, String passwordHash, Role role) {
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.role = role;
+    }
 
     // Get- og set-metoder for å lese eller lagre data
     public Long getId() {
@@ -33,4 +45,6 @@ public class User {
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
+    public Role getRole() { return role; }
+    public void setRole(Role role) { this.role = role; }
 }

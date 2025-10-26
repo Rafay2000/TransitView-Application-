@@ -1,8 +1,22 @@
 package hiof_project.domain.model.user_system;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("CUSTOMER")
 public class Customer extends Role {
 
-    private String email;
+    public Customer() {
+        super("CUSTOMER");
+    }
+
+
+
+
+
+
+    /* private String email;
     private String password;
 
     //Constructor for customer with email and password..
@@ -45,5 +59,5 @@ public class Customer extends Role {
                 " - Customer{email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
-    }
+    } */
 }

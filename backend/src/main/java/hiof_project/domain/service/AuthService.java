@@ -1,6 +1,8 @@
 package hiof_project.domain.service;
 
-import hiof_project.domain.model.User;
+import hiof_project.domain.model.user_system.Role;
+import hiof_project.domain.model.user_system.User;
+import hiof_project.ports.out.RoleRepository;
 import hiof_project.ports.out.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -9,13 +11,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService {
 
-    private final UserRepository repo;
-    private final PasswordEncoder encoder;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     // Spring setter inn repository og encoder.
-    public AuthService(UserRepository repo, PasswordEncoder encoder) {
-        this.repo = repo;
-        this.encoder = encoder;
+    public AuthService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // Funksjon som registrerer bruker med epost og passord.
@@ -24,10 +28,10 @@ public class AuthService {
         if (email == null || email.isBlank() || !email.contains("@")) {
             throw new IllegalArgumentException("Ugyldig e-postadresse");
         }
-        if (repo.findByEmail(email).isPresent()) {
+        if (userRepository.findByEmail(email).isPresent()) {
             throw new IllegalArgumentException("E-postadressen er allerede registrert");
         }
-        // Passord checker
+        // Password checker
         if (password == null || password.length() < 8) {
             throw new IllegalArgumentException("Passord må inneholde minst 8 tegn");
         }
@@ -41,19 +45,20 @@ public class AuthService {
             throw new IllegalArgumentException("Passord må inneholde minst ett tall");
         }
 
-        // Oppretter bruker dersom ingen if "aktiveres"
-        User u = new User();
-        u.setEmail(email);
-        u.setPasswordHash(encoder.encode(password));
-        repo.save(u);
+        Role customerRole = roleRepository.findByName("CUSTOMER");
+
+        // Oppretter bruker med CUSTOMER som basis-rolle
+        User user = new User();
+        user.setRole(customerRole);
+        userRepository.save(user);
     }
 
     // Funksjon som sjekker om epost og passord er registrert.
     public boolean login(String email, String password) {
 
         // .map kjøres kun dersom brukeren finnes, hvis ikke returneres false.
-        return repo.findByEmail(email)
-                .map(u -> encoder.matches(password, u.getPasswordHash()))
+        return userRepository.findByEmail(email)
+                .map(u -> passwordEncoder.matches(password, u.getPasswordHash()))
                 .orElse(false);
     }
 }

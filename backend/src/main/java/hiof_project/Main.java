@@ -1,15 +1,18 @@
 package hiof_project;
 
 import hiof_project.domain.model.transport_system.*;
-import hiof_project.domain.model.user_system.Customer;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
+@SpringBootApplication
 public class Main {
     public static void main(String[] args) {
+
+        SpringApplication.run(Main.class, args);
 
         // Opprett stopp
         Stop fredrikstad = new Stop(1, "Fredrikstad Busstasjon", 3.5,
@@ -44,18 +47,12 @@ public class Main {
         // Opprett tur
         Trip trip = new Trip(1, route, schedule, bus);
 
-        // Opprett bruker/kunde
-        Customer bruker = new Customer(
-                1,"johand01","john.anderson@fakemail.com",
-                "terriblepassword123","John","Andersson","Customer"
-        );
 
 
         // Print ut resultatet
-        System.out.println("Bruker: " + bruker.getFullName() + " (" + bruker.getEmail() + ")");
         System.out.println("Søkt på rute 'FR-GR03'");
         System.out.println();
-        System.out.println(trip.toString());
+        System.out.println(trip);
     }
 }
 

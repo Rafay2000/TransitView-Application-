@@ -37,17 +37,12 @@ public class IntegrationTest {
         Bus bus = new Bus(1, "R4", "Bybuss - Elektrisk", 45);
         Trip trip = new Trip(1, route, schedule, bus);
 
-        Customer customer = new Customer(
-                1, "johand01", "john.anderson@fakemail.com",
-                "terriblepassword123", "John", "Andersson", "Customer"
-        );
 
         // Assertions
         assertEquals(1, trip.getRoute().getRouteId());
         assertEquals("FR-GR03", trip.getRoute().getRouteName());
         assertEquals("R4", trip.getBus().getVehicleName());
         assertEquals(2, trip.getRoute().getStops().size());
-        assertEquals("John Andersson", customer.getFullName());
     }
 }
 

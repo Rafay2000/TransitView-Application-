@@ -1,8 +1,17 @@
 package hiof_project.domain.model.user_system;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("ADMIN")
 public class Admin extends Role {
 
-    private String password;
+    public Admin() {
+        super("ADMIN");
+    }
+
+    /* private String password;
 
     //Constructor for admin with password..
     public Admin(int userId, String userName, String password, String firstName, String lastname, String role) {
@@ -31,6 +40,6 @@ public class Admin extends Role {
     public String fullUserInfo() {
         return super.fullUserInfo() +
                 " - Admin{password=' " + password + '\'' + '}';
-    }
+    } */
 }
 

@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UsersTest {
 
     //Test område.
-    @Test
+ /*   @Test
     void testBruker() {
         Customer bruker = new Customer(1, "testUser", "Test", "User", "Customer");
         assertEquals(1, bruker.getUserId());
@@ -69,6 +69,6 @@ public class UsersTest {
         assertThrows(NoSuchMethodException.class, () -> {
             dev.getClass().getMethod("getPassword");
         });
-    }
+    } */
 }
 
