@@ -25,23 +25,42 @@ Buss R4 kjører ruten, med avgang og ankomst tidspunkter definert i Schedule, ek
 Kunde kan reservere eller se informasjon om trips.
 
 Systemstruktur følger en hexadoginal-struktur på følgende måte:
-hiof_project/
-│
-├─ domain/               # Kjernen i systemet
-│   ├─ model/            # Data-modeller (Bus, Trip, Route, Stop, Schedule)
-│   └─ exception/        # Custom exceptions (RepositoryException, MySQLDatabaseException)
-│
-├─ ports/                # Interface-lag
-│   └─ out/              # Repository-interfaces (BusRepository, StopRepository, TripRepository)
-│
-├─ infrastructure/       # Implementasjon av repos og database
-│   ├─ adapters/
-│   │   ├─ db/           # SQL-repository implementasjoner
-│   │   └─ api/          # Eventuelle API-adaptere
-│   └─ config/           # Database-setup og konfigurasjon
-│
-└─ application/          # Eventuell service- eller controller-lag (om utvidet MVP)
 
+## Prosjektstruktur
+```
+backend/
+└── src/
+└── main/
+├── java/
+│ └── hiof_project/
+│ ├── domain/
+│ │ ├── exception/
+│ │ └── model/
+│ │ ├── transport_system/
+│ │ └── user_system/
+│ └── service/
+├── infrastructure/
+│ └── adapters/
+│ ├── api/
+│ └── db/
+│ └── config/
+├── ports/
+│ ├── in/
+│ └── out/
+└── resources/
+├── application.properties
+└── db_scripts/
+
+docs/
+└── diagrams/
+├── classdiagram/
+└── sequencediagram/
+
+frontend/
+└── src/
+├── assets/
+└── components/
+```
 
 Repository-lag: Kommuniserer med SQL-database.
 
@@ -59,11 +78,12 @@ Lage et klart, modulært repository- og database-oppsett som kan skaleres videre
 Gi en fungerende backend som kan testes med SQL-database uten UI.
 
 Teknologier som ble brukt:
-
+```
 Java (backend)
-Ract rammeverk (CSS, JavaScript og HTML)
+React Framework (CSS, JavaScript og HTML)
 SQL (Microsoft SQL i Azure database)
 JDBC / PreparedStatement for databasekommunikasjon
 Maven / Gradle (prosjektstyring)
 Git / GitHub for versjonskontroll
 Eventuell APIs for GPS, kart og sanntidskontroll
+```
