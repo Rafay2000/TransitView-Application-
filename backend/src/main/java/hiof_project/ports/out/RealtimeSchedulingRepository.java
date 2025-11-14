@@ -15,7 +15,7 @@ public interface RealtimeSchedulingRepository {
     ArrayList<RealtimeScheduling> getAllUpdatedTime() throws RepositoryException; //hent alle oppdaterte sanntid fra db
 
     //finn sanntid fra tripId og stopId i databasen
-    Optional<RealtimeScheduling> findByTripAndStop(int tripId, int stopId) throws RepositoryException;
+    Optional<RealtimeScheduling> findUpdatedScheduleByTripAndStop(int tripId, int stopId) throws RepositoryException;
     //finn alle sanntider fra tripId i databasen
-    ArrayList<RealtimeScheduling> findAllByTrip(int tripId) throws RepositoryException;
+    ArrayList<RealtimeScheduling> findAllUpdatedScheduleByTrip(int tripId) throws RepositoryException;
 }

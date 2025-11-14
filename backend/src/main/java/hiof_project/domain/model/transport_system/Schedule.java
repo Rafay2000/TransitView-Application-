@@ -6,13 +6,19 @@ import java.util.ArrayList;
 
 public class Schedule {
 
+    private int scheduleId;
     private ArrayList<ScheduleTimer> scheduleTimer;
     private LocalDate definedDate;
 
     //Kontruktør.
-    public Schedule(ArrayList<ScheduleTimer> scheduleTimer, LocalDate definedDate) {
+    public Schedule(int scheduleId, ArrayList<ScheduleTimer> scheduleTimer, LocalDate definedDate) {
+        this.scheduleId = scheduleId;
         this.scheduleTimer = scheduleTimer;
         this.definedDate = definedDate;
+    }
+
+    public int getScheduleId() {
+        return scheduleId;
     }
 
     public ArrayList<ScheduleTimer> getScheduleTimer() {

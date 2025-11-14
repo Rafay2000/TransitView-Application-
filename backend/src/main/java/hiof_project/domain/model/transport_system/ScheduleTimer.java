@@ -4,11 +4,19 @@ import java.time.LocalTime;
 
 public class ScheduleTimer {
 
+    private Integer scheduleTimerId;
     private LocalTime arrival;
     private LocalTime departure;
 
-    //Konstruktør.
+    //Konstruktør for backend hardkoding
     public ScheduleTimer(LocalTime arrival, LocalTime departure) {
+        this.arrival = arrival;
+        this.departure = departure;
+    }
+
+    //Konstruktør som kan brukes til å genere ID i database
+    public ScheduleTimer(Integer scheduleTimerId, LocalTime arrival, LocalTime departure) {
+        this.scheduleTimerId = scheduleTimerId;
         this.arrival = arrival;
         this.departure = departure;
     }

@@ -42,6 +42,10 @@ public class Stop {
         return descriptionNextStop;
     }
 
+    public void setStopName(String stopName) {
+        this.stopName = stopName;
+    }
+
     public void setDistanceInKm(double distanceInKm) {
         this.distanceInKm = distanceInKm;
     }
@@ -67,7 +71,6 @@ public class Stop {
                 + "**(Estimert kjøretur " + timeToNextStop + " min / "
                 + distanceInKm + " KM avstand / " + desc + ")**";
     }
-
 
     public String fullStopInfo() {
         return "Stop{" +

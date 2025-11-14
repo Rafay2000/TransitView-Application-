@@ -35,19 +35,17 @@ public class Main {
         Route route = new Route(1,"FR-GR03", stops);
 
         // Opprett tidsplan (Schedule) med ScheduleTimer
-        ArrayList<ScheduleTimer> frgr03 = new ArrayList<>();
+        ArrayList<ScheduleTimer> fre_sarps = new ArrayList<>();
 
-        frgr03.add(new ScheduleTimer(LocalTime.of(8, 50), LocalTime.of(9, 0)));
-        frgr03.add(new ScheduleTimer(LocalTime.of(9, 10), LocalTime.of(9, 25)));
-        frgr03.add(new ScheduleTimer(LocalTime.of(9, 40), LocalTime.of(9, 50)));
-        frgr03.add(new ScheduleTimer(LocalTime.of(10, 7), LocalTime.of(10, 14))); // siste stopp
+        fre_sarps.add(1, new ScheduleTimer(LocalTime.of(8, 50), LocalTime.of(9, 0)));
+        fre_sarps.add(1, new ScheduleTimer(LocalTime.of(9, 10), LocalTime.of(9, 25)));
+        fre_sarps.add(1, new ScheduleTimer(LocalTime.of(9, 40), LocalTime.of(9, 50)));
+        fre_sarps.add(1, new ScheduleTimer(LocalTime.of(10, 7), LocalTime.of(10, 14))); // siste stopp
 
-        Schedule schedule = new Schedule(frgr03, LocalDate.of(2025, 10, 5));
+        Schedule schedule = new Schedule(1, fre_sarps, LocalDate.of(2025, 10, 5));
 
         // Opprett tur
         Trip trip = new Trip(1, route, schedule, bus);
-
-
 
         // Print ut resultatet
         System.out.println("Søkt på rute 'FR-GR03'");
