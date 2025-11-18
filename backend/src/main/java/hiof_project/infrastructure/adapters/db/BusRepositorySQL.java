@@ -22,7 +22,7 @@ public class BusRepositorySQL implements BusRepository {
     //Oppretter buss verdier basert på datatyper fra Bus klassen og legger det i SQL databasen
     @Override
     public void createBus(Bus bus) throws RepositoryException {
-        String sql = "INSERT INTO Bus (bus_id, bus_name, bus_type, capacity) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Buses (bus_id, bus_name, bus_type, capacity) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, bus.getVehicleId());
@@ -35,42 +35,22 @@ public class BusRepositorySQL implements BusRepository {
         }
     }
 
-    //Lagrer eller oppretter buss verdier basert på datatyper fra Bus klassen og legger det i SQL databasen
-    //Azure SQL måten
+    // Optional-style effektiv måte: hvis ID finnes i DB. Så update, ellers create
     @Override
     public void saveBus(Bus bus) throws RepositoryException {
-        //Prøver å oppdatere radene først
-        String updateSql = "UPDATE Buses SET bus_name = ?, bus_type = ?, capacity = ? WHERE bus_id = ?";
+        Optional<Bus> existing = getByBusId(bus.getVehicleId());
 
-        try (PreparedStatement updateStmt = connection.prepareStatement(updateSql)) {
-            updateStmt.setString(1, bus.getVehicleName());
-            updateStmt.setString(2, bus.getVehicleType());
-            updateStmt.setInt(3, bus.getCapacity());
-            updateStmt.setInt(4, bus.getVehicleId());
-
-            int affectedRows = updateStmt.executeUpdate();
-
-            //Hvis ingen rader ble oppdatert, sett inn ny rad og med alle datatypene
-            if (affectedRows == 0) {
-                String insertSql = "INSERT INTO Buses (bus_id, bus_name, bus_type, capacity) VALUES (?, ?, ?, ?)";
-                try (PreparedStatement insertStmt = connection.prepareStatement(insertSql)) {
-                    insertStmt.setInt(1, bus.getVehicleId());
-                    insertStmt.setString(2, bus.getVehicleName());
-                    insertStmt.setString(3, bus.getVehicleType());
-                    insertStmt.setInt(4, bus.getCapacity());
-                    insertStmt.executeUpdate();
-                }
-            }
-
-        } catch (SQLException e) {
-            throw new RepositoryException("ERROR: Could not save bus in database", e);
+        if (existing.isPresent()) {
+            updateBus(bus);
+        } else {
+            createBus(bus);
         }
     }
 
     //Oppdaterer buss verdier på et bestemt buss id fra SQL tabellen
     @Override
     public void updateBus(Bus bus) throws RepositoryException {
-        String sql = "UPDATE Bus SET bus_name = ?, bus_type = ?, capacity = ? WHERE bus_id = ?";
+        String sql = "UPDATE Buses SET bus_name = ?, bus_type = ?, capacity = ? WHERE bus_id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, bus.getVehicleName());
@@ -87,7 +67,7 @@ public class BusRepositorySQL implements BusRepository {
     //Sletter buss verdier basert på datatyper fra Bus klassen og legger det i SQL databasen
     @Override
     public void deleteBusId(int vehicleId) throws RepositoryException {
-        String sql = "DELETE FROM Bus WHERE bus_id = ?";
+        String sql = "DELETE FROM Buses WHERE bus_id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, vehicleId);
@@ -101,7 +81,7 @@ public class BusRepositorySQL implements BusRepository {
     //Henter et bestemt buss id fra bus tabellen i SQL databasen
     @Override
     public Optional<Bus> getByBusId(int vehicleId) throws RepositoryException {
-        String sql = "SELECT * FROM Bus WHERE bus_id = ?";
+        String sql = "SELECT * FROM Buses WHERE bus_id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, vehicleId);
@@ -127,7 +107,7 @@ public class BusRepositorySQL implements BusRepository {
     //Henter alle buss id fra bus tabellen i SQL databasen
     @Override
     public ArrayList<Bus> getAllBuses() throws RepositoryException {
-        String sql = "SELECT bus_id, bus_name, bus_type, capacity FROM Bus";
+        String sql = "SELECT bus_id, bus_name, bus_type, capacity FROM Buses";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 

@@ -38,41 +38,15 @@ public class StopRepositorySQL implements StopRepository {
         }
     }
 
-    //Lagrer eller oppretter busshodleplass verdier basert på datatyper fra Stops tabellen med route_id som FOREIGN KEY
-    //Azure SQL måten
+    // Optional-style effektiv måte: hvis ID finnes i DB. Så update, ellers create
     @Override
     public void saveStop(Stop stop, int routeId) throws RepositoryException {
-        //Prøver å oppdatere radenE først
-        String updateSql = "UPDATE Stops SET stop_name = ?, distance_to_next_km = ?, time_to_next_stop = ?, " +
-                "desc_next_stop = ?, route_id = ? WHERE stop_id = ?";
+        Optional<Stop> existing = getByStopId(stop.getStopId());
 
-        try (PreparedStatement updateStmt = connection.prepareStatement(updateSql)) {
-            updateStmt.setString(1, stop.getStopName());
-            updateStmt.setDouble(2, stop.getDistanceInKm());
-            updateStmt.setInt(3, stop.getTimeToNextStop());
-            updateStmt.setString(4, stop.getDescriptionNextStop());
-            updateStmt.setInt(5, routeId);
-            updateStmt.setInt(6, stop.getStopId());
-
-            int affectedRows = updateStmt.executeUpdate();
-
-            //Hvis ingen rader ble oppdatert, sett inn ny rad og med alle datatypene
-            if (affectedRows == 0) {
-                String insertSql = "INSERT INTO Stops (stop_id, stop_name, distance_to_next_km, time_to_next_stop, desc_next_stop, route_id) " +
-                        "VALUES (?, ?, ?, ?, ?, ?)";
-                try (PreparedStatement insertStmt = connection.prepareStatement(insertSql)) {
-                    insertStmt.setInt(1, stop.getStopId());
-                    insertStmt.setString(2, stop.getStopName());
-                    insertStmt.setDouble(3, stop.getDistanceInKm());
-                    insertStmt.setInt(4, stop.getTimeToNextStop());
-                    insertStmt.setString(5, stop.getDescriptionNextStop());
-                    insertStmt.setInt(6, routeId);
-
-                    insertStmt.executeUpdate();
-                }
-            }
-        } catch (SQLException e) {
-            throw new RepositoryException("ERROR: Could not save stop in database", e);
+        if (existing.isPresent()) {
+            updateStop(stop, routeId);
+        } else {
+            createStop(stop, routeId);
         }
     }
 
@@ -145,8 +119,8 @@ public class StopRepositorySQL implements StopRepository {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                int stopId = resultSet.getInt("bus_id");
-                String stopName = resultSet.getString("bus_name");
+                int stopId = resultSet.getInt("stop_id");
+                String stopName = resultSet.getString("stop_name");
                 double distanceInKm = resultSet.getDouble("distance_to_next_km");
                 int timeToNextStop = resultSet.getInt("time_to_next_stop");
                 String descriptionNextStop = resultSet.getString("desc_next_stop");

@@ -1,17 +1,21 @@
 package hiof_project.infrastructure.adapters.db;
 
-import hiof_project.domain.model.transport_system.Stop;
-import hiof_project.ports.out.ScheduleRepository;
 import hiof_project.domain.exception.RepositoryException;
 import hiof_project.domain.model.transport_system.Schedule;
 import hiof_project.domain.model.transport_system.ScheduleTimer;
+import hiof_project.ports.out.ScheduleRepository;
 
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
 public class ScheduleRepositorySQL implements ScheduleRepository {
+
     private Connection connection;
     private final ScheduleTimerRepositorySQL scheduleTimerRepository;
 
@@ -20,7 +24,8 @@ public class ScheduleRepositorySQL implements ScheduleRepository {
         this.scheduleTimerRepository = new ScheduleTimerRepositorySQL(connection);
     }
 
-    //opprette tidsplan
+    // Opprette tidsplan
+    @Override
     public void createSchedule(Schedule schedule) throws RepositoryException {
         String sql = "INSERT INTO Schedules (schedule_id, defined_date) VALUES (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -28,9 +33,15 @@ public class ScheduleRepositorySQL implements ScheduleRepository {
             preparedStatement.setDate(2, Date.valueOf(schedule.getDefinedDate()));
             preparedStatement.executeUpdate();
 
-            //Lagre ankomst/avgang liste til tilhørende tidsplan
-            for (ScheduleTimer times : schedule.getScheduleTimer()) {
-                scheduleTimerRepository.createScheduleTimer(times, schedule.getScheduleId());
+            // Lagre alle ankomst/avgang (ScheduleTimer) til tilhørende tidsplan
+            ArrayList<ScheduleTimer> timers = schedule.getScheduleTimer();
+            if (timers != null) {
+                for (int i = 0; i < timers.size(); i++) {
+                    ScheduleTimer t = timers.get(i);
+                    t.setScheduleId(schedule.getScheduleId());
+                    t.setSequence(i + 1); // 1, 2, 3, ...
+                    scheduleTimerRepository.saveScheduleTimer(t);
+                }
             }
 
         } catch (SQLException e) {
@@ -38,17 +49,43 @@ public class ScheduleRepositorySQL implements ScheduleRepository {
         }
     }
 
-    //lagre tidsplan
+    // Optional-style effektiv måte: hvis ID finnes i DB. Så update, ellers create
+    @Override
+    public void saveSchedule(Schedule schedule) throws RepositoryException {
+        Optional<Schedule> existing = getByScheduleId(schedule.getScheduleId());
+
+        if (existing.isPresent()) {
+            updateSchedule(schedule);
+        } else {
+            createSchedule(schedule);
+        }
+    }
+
+    // Oppdater tidsplan (definert dato + tilhørende timers)
+    @Override
     public void updateSchedule(Schedule schedule) throws RepositoryException {
         String sql = "UPDATE Schedules SET defined_date = ? WHERE schedule_id = ?";
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setDate(1, Date.valueOf(schedule.getDefinedDate()));
             preparedStatement.setInt(2, schedule.getScheduleId());
             preparedStatement.executeUpdate();
 
-            // Oppdater alle ankomst/avgang liste til tilhørende tidsplan
-            for (ScheduleTimer times : schedule.getScheduleTimer()) {
-                scheduleTimerRepository.updateScheduleTimer(times);
+            // Samme strategi som i save: slett alle timers og legg inn på nytt
+            String deleteTimersSql = "DELETE FROM ScheduleTimers WHERE schedule_id = ?";
+            try (PreparedStatement deleteTimersStmt = connection.prepareStatement(deleteTimersSql)) {
+                deleteTimersStmt.setInt(1, schedule.getScheduleId());
+                deleteTimersStmt.executeUpdate();
+            }
+
+            ArrayList<ScheduleTimer> timers = schedule.getScheduleTimer();
+            if (timers != null) {
+                for (int i = 0; i < timers.size(); i++) {
+                    ScheduleTimer t = timers.get(i);
+                    t.setScheduleId(schedule.getScheduleId());
+                    t.setSequence(i + 1); // 1, 2, 3, ...
+                    scheduleTimerRepository.saveScheduleTimer(t);
+                }
             }
 
         } catch (SQLException e) {
@@ -56,17 +93,19 @@ public class ScheduleRepositorySQL implements ScheduleRepository {
         }
     }
 
-
-
-
-    public void updateSchedule(Schedule schedule) throws RepositoryException //oppdater tidsplan
-    {
-
-    }
-
-    //slett tidsplan basert på IDen
+    // Slett tidsplan basert på IDen
     @Override
     public void deleteScheduleId(int scheduleId) throws RepositoryException {
+        // Slett først alle ScheduleTimers pga. foreign key
+        String deleteTimersSql = "DELETE FROM ScheduleTimers WHERE schedule_id = ?";
+
+        try (PreparedStatement deleteTimersStmt = connection.prepareStatement(deleteTimersSql)) {
+            deleteTimersStmt.setInt(1, scheduleId);
+            deleteTimersStmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RepositoryException("ERROR: Could not delete schedule timers for schedule ID " + scheduleId, e);
+        }
+
         String sql = "DELETE FROM Schedules WHERE schedule_id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -77,33 +116,54 @@ public class ScheduleRepositorySQL implements ScheduleRepository {
         }
     }
 
-    //hent tidsplan basert på IDen
+    // Hent tidsplan basert på IDen
+    @Override
     public Optional<Schedule> getByScheduleId(int scheduleId) throws RepositoryException {
-        String sql = "SELECT * FROM Schedules WHERE schedule_id = ?";
+        String sql = "SELECT schedule_id, defined_date FROM Schedules WHERE schedule_id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, scheduleId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                Stop stop = new Stop(
-                        resultSet.getInt("stop_id"),
-                        resultSet.getString("stop_name"),
-                );
+                int id = resultSet.getInt("schedule_id");
+                LocalDate definedDate = resultSet.getDate("defined_date").toLocalDate();
+
+                // Hent alle timers for denne schedule
+                ArrayList<ScheduleTimer> timers = scheduleTimerRepository.getTimersByScheduleId(id);
+
+                Schedule schedule = new Schedule(id, timers, definedDate);
                 return Optional.of(schedule);
             } else {
                 return Optional.empty();
             }
         } catch (SQLException e) {
-            throw new RepositoryException("ERROR: Could not retrieve stop with ID " + stopId, e);
+            throw new RepositoryException("ERROR: Could not retrieve schedule with ID " + scheduleId, e);
         }
-
-
     }
 
-    public ArrayList<Schedule> getAllSchedules() throws RepositoryException //hent alle tidsplaner fra db
-    {
-        return null;
-    }
+    // Hent alle tidsplaner fra db
+    @Override
+    public ArrayList<Schedule> getAllSchedules() throws RepositoryException {
+        String sql = "SELECT schedule_id, defined_date FROM Schedules";
+        ArrayList<Schedule> schedules = new ArrayList<>();
 
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("schedule_id");
+                LocalDate definedDate = resultSet.getDate("defined_date").toLocalDate();
+
+                ArrayList<ScheduleTimer> timers = scheduleTimerRepository.getTimersByScheduleId(id);
+
+                Schedule schedule = new Schedule(id, timers, definedDate);
+                schedules.add(schedule);
+            }
+
+            return schedules;
+        } catch (SQLException e) {
+            throw new RepositoryException("ERROR: Could not retrieve schedules from database", e);
+        }
+    }
 }

@@ -38,36 +38,15 @@ public class TripRepositorySQL implements TripRepository{
         }
     }
 
-    //Lagrer eller oppretter tur verdier basert på datatyper fra
-    // Trips tabellen med route_id, schedule_id og bus_id som FOREIGN KEY
-    //Azure SQL måten
+    // Optional-style effektiv måte: hvis ID finnes i DB. Så update, ellers create
     @Override
     public void saveTrip(Trip trip) throws RepositoryException {
-        //Prøver å oppdatere radenE først
-        String updateSql = "UPDATE Trips SET route_id = ?, schedule_id = ?, bus_id = ? WHERE trip_id = ?";
+        Optional<Trip> existing = getByTripId(trip.getTripId());
 
-        try (PreparedStatement updateStmt = connection.prepareStatement(updateSql)) {
-            updateStmt.setInt(1, trip.getRoute().getRouteId());
-            updateStmt.setInt(2, trip.getSchedule().getScheduleId());
-            updateStmt.setInt(3, trip.getBus().getVehicleId());
-            updateStmt.setInt(4, trip.getTripId());
-
-            int affectedRows = updateStmt.executeUpdate();
-
-            //Hvis ingen rader ble oppdatert, sett inn ny rad med alle datatypene
-            if (affectedRows == 0) {
-                String insertSql = "INSERT INTO Trips (trip_id, route_id, schedule_id, bus_id) VALUES (?, ?, ?, ?)";
-                try (PreparedStatement insertStmt = connection.prepareStatement(insertSql)) {
-                    insertStmt.setInt(1, trip.getRoute().getRouteId());
-                    insertStmt.setInt(2, trip.getSchedule().getScheduleId());
-                    insertStmt.setInt(3, trip.getBus().getVehicleId());
-                    insertStmt.setInt(4, trip.getTripId());
-
-                    insertStmt.executeUpdate();
-                }
-            }
-        } catch (SQLException e) {
-            throw new RepositoryException("ERROR: Could not update trip in database", e);
+        if (existing.isPresent()) {
+            updateTrip(trip);
+        } else {
+            createTrip(trip);
         }
     }
 

@@ -33,31 +33,15 @@ public class RouteRepositorySQL implements RouteRepository {
         }
     }
 
-    //Lagrer eller oppretter rute verdier basert på datatyper fra Routes klassen og legger det i SQL databasen
-    //Azure SQL måten
+    // Optional-style effektiv måte: hvis ID finnes i DB. Så update, ellers create
     @Override
     public void saveRoute(Route route) throws RepositoryException {
-        //Prøver å oppdatere radene først
-        String updateSql = "UPDATE Routes SET route_name = ? WHERE route_id = ?";
+        Optional<Route> existing = getByRouteId(route.getRouteId());
 
-        try (PreparedStatement updateStmt = connection.prepareStatement(updateSql)) {
-            updateStmt.setString(1, route.getRouteName());
-            updateStmt.setInt(2, route.getRouteId());
-
-            int affectedRows = updateStmt.executeUpdate();
-
-            //Hvis ingen rader ble oppdatert, sett inn ny rad og med alle datatypene
-            if (affectedRows == 0) {
-                String insertSql = "INSERT INTO Routes (route_id, route_name) VALUES (?, ?)";
-                try (PreparedStatement insertStmt = connection.prepareStatement(insertSql)) {
-                    insertStmt.setInt(1, route.getRouteId());
-                    insertStmt.setString(2, route.getRouteName());
-                    insertStmt.executeUpdate();
-                }
-            }
-
-        } catch (SQLException e) {
-            throw new RepositoryException("ERROR: Could not save route in database", e);
+        if (existing.isPresent()) {
+            updateRoute(route);
+        } else {
+            createRoute(route);
         }
     }
 
