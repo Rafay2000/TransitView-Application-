@@ -2,6 +2,7 @@ package hiof_project.domain.model.transport_system;
 
 import java.time.LocalTime;
 
+//Klasse for sanntidsoppdatering av ankosmt og avreiser på et eller flere bussholdeplass
 public class RealtimeScheduling {
 
     private int realtimeId;             // PK i databasen
@@ -11,8 +12,8 @@ public class RealtimeScheduling {
     private LocalTime updatedArrival;
 
     // Konstruktør for sanntid oppdatering.
-    public RealtimeScheduling(int realtimeIdid, int tripId, int stopId, LocalTime updatedDeparture, LocalTime updatedArrival) {
-        this.realtimeId = realtimeIdid;
+    public RealtimeScheduling(int realtimeId, int tripId, int stopId, LocalTime updatedDeparture, LocalTime updatedArrival) {
+        this.realtimeId = realtimeId;
         this.tripId = tripId;
         this.stopId = stopId;
         this.updatedDeparture = updatedDeparture;

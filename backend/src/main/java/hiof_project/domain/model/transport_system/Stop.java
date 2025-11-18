@@ -1,5 +1,6 @@
 package hiof_project.domain.model.transport_system;
 
+//Klasse som skal vise frem bussholdeplass navn med nødvendig detaljer for brukervennlighet
 public class Stop {
 
     private final int stopId;

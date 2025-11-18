@@ -2,6 +2,7 @@ package hiof_project.domain.model.transport_system;
 
 import java.util.ArrayList;
 
+//Klasse som skal fortelle hvilken rute det er med tilhørende bussholdeplasser
 public class Route {
 
     private int routeId;

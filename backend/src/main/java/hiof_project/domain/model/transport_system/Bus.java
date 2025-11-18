@@ -1,5 +1,6 @@
 package hiof_project.domain.model.transport_system;
 
+//Klasse som skal ha informasjonen om bussen
 public class Bus extends Vehicle {
 
     //Bus konstruktør.

@@ -1,5 +1,6 @@
 package hiof_project.domain.model.transport_system;
 
+//Klasse som skal vise en hel tur bestående av navnet på ruten, alle tidene per bussholdeplass og type buss
 public class Trip {
 
     private int tripId;
