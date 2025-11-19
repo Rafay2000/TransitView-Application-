@@ -1,5 +1,6 @@
 package hiof_project.domain.service;
 
+import hiof_project.infrastructure.adapters.api.dto.RegisterDTO;
 import hiof_project.domain.model.user_system.Role;
 import hiof_project.domain.model.user_system.User;
 import hiof_project.ports.out.RoleRepository;
@@ -23,42 +24,37 @@ public class AuthService {
     }
 
     // Funksjon som registrerer bruker med epost og passord.
-    public void register(String email, String password) {
-        // E-mail checker
-        if (email == null || email.isBlank() || !email.contains("@")) {
-            throw new IllegalArgumentException("Ugyldig e-postadresse");
-        }
-        if (userRepository.findByEmail(email).isPresent()) {
-            throw new IllegalArgumentException("E-postadressen er allerede registrert");
-        }
-        // Password checker
-        if (password == null || password.length() < 8) {
-            throw new IllegalArgumentException("Passord må inneholde minst 8 tegn");
-        }
-        if (!password.matches(".*[A-Z].*")) {
-            throw new IllegalArgumentException("Passord må inneholde minst én stor bokstav");
-        }
-        if (!password.matches(".*[a-z].*")) {
-            throw new IllegalArgumentException("Passord må inneholde minst én liten bokstav");
-        }
-        if (!password.matches(".*\\d.*")) {
-            throw new IllegalArgumentException("Passord må inneholde minst ett tall");
+    public void register(RegisterDTO dto) {
+        UserValidator.validateEmail(dto.email());
+        UserValidator.validatePassword(dto.password());
+
+        if (userRepository.findByEmail(dto.email()).isPresent()) {
+            throw new IllegalArgumentException("E-post er allerede i bruk");
         }
 
-        String hashedPassword = passwordEncoder.encode(password);
+        String hashedPassword = passwordEncoder.encode(dto.password());
         Role defaultRole = roleRepository.findByName("CUSTOMER");
 
         // Oppretter bruker med CUSTOMER som basis-rolle
-        User user = new User(email, hashedPassword, defaultRole);
+        User user = new User(dto.email(), hashedPassword, defaultRole);
         userRepository.save(user);
     }
 
     // Funksjon som sjekker om epost og passord er registrert.
     public boolean login(String email, String password) {
 
-        // .map kjøres kun dersom brukeren finnes, hvis ikke returneres false.
-        return userRepository.findByEmail(email)
-                .map(u -> passwordEncoder.matches(password, u.getPasswordHash()))
-                .orElse(false);
+        // Felles melding for ugyldig e-post eller passord, dette er bedre for sikkerhet mot user enumeration
+        String errorMessage = "Feil e-post eller passord";
+
+        // Sjekker om epost eksisterer i databasen
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException(errorMessage));
+
+        // Sjekker om passord er gyldig
+        if (!passwordEncoder.matches(password, user.getPasswordHash())) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+        return true;
     }
 }
+
