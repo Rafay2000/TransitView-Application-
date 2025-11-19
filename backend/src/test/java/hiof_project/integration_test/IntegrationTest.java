@@ -10,7 +10,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-/*
+
 public class IntegrationTest {
 
     //test område.
@@ -32,7 +32,7 @@ public class IntegrationTest {
         timers.add(new ScheduleTimer(LocalTime.of(8,50), LocalTime.of(9,0)));
         timers.add(new ScheduleTimer(LocalTime.of(9,10), LocalTime.of(9,20)));
 
-       Schedule schedule = new Schedule(timers, LocalDate.of(2025,10,5));
+        Schedule schedule = new Schedule(1, timers, LocalDate.of(2025,10,5));
 
         Bus bus = new Bus(1, "R4", "Bybuss - Elektrisk", 45);
         Trip trip = new Trip(1, route, schedule, bus);
@@ -45,4 +45,4 @@ public class IntegrationTest {
         assertEquals(2, trip.getRoute().getStops().size());
     }
 }
-*/
+
