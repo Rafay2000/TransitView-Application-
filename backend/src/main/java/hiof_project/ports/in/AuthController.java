@@ -1,6 +1,10 @@
 package hiof_project.ports.in;
 
+import hiof_project.infrastructure.adapters.api.dto.LoginDTO;
+import hiof_project.infrastructure.adapters.api.dto.RegisterDTO;
 import hiof_project.domain.service.AuthService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 // @RestController returnerer tekst direkte til frontend.
@@ -18,29 +22,22 @@ public class AuthController {
         this.authService = authService;
     }
 
-    // Leser epost og passord fra JSON.
-    public record AuthRequest(String email, String password) {}
-
     // Endepunkt registrering.
     @PostMapping("/register")
-    public String register(@RequestBody AuthRequest req) {
-       try {
-           authService.register(req.email(), req.password());
-           return "Bruker registrert";
-       } catch (IllegalArgumentException e) {
-           return "Registrering feilet: " + e.getMessage();
-       }
+    public ResponseEntity<String> register(@RequestBody RegisterDTO dto) {
+        authService.register(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Bruker er registrert");
     }
 
     // Endepunkt innlogging.
     @PostMapping("/login")
-    public String login(@RequestBody AuthRequest req) {
-        boolean accepted = authService.login(req.email(), req.password());
-
-        if (accepted) {
-            return "Vellykket innlogging!";
-        } else {
-            return "Feil epost eller passord";
+    public ResponseEntity<String> login(@RequestBody LoginDTO dto) {
+        try {
+            boolean accepted = authService.login(dto.email(), dto.password());
+            return ResponseEntity.ok("Innlogging vellykket");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(e.getMessage());
         }
     }
 }

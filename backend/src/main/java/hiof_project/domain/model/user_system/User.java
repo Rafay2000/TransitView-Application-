@@ -11,13 +11,16 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
     private String email;
 
     //Passord lagres som en hash istedetfor tekst av sikkerhetsårsaker
+    @Column(nullable = false)
     private String passwordHash;
 
     // Mange User-objekter kan ha én rolle
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private Role role;
 
@@ -36,14 +39,11 @@ public class User {
     public String getEmail() {
         return email;
     }
-    public void setEmail(String email) {
-        this.email = email;
-    }
     public String getPasswordHash() {
         return passwordHash;
     }
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void changePassword(String newHash) {
+        this.passwordHash = newHash;
     }
     public Role getRole() { return role; }
     public void setRole(Role role) { this.role = role; }

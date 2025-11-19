@@ -16,7 +16,7 @@ public abstract class Role {
     @Column(unique = true, nullable = false)
     private String name;
 
-    public Role() {}
+    public Role() { }
 
     public Role(String name) {
         this.name = name;

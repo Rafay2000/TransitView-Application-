@@ -9,7 +9,7 @@ import hiof_project.ports.out.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.test.context.ActiveProfiles;
 
 
 import java.util.Optional;
@@ -17,7 +17,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles("test")
 public class UserRepositoryTest {
 
     @Autowired
@@ -49,4 +49,30 @@ public class UserRepositoryTest {
         // Assert
         assertFalse(found.isPresent(), "Brukeren skal ikke finnes");
     }
+    @Test
+    void testUniqueEmail() {
+        Role role = new Customer();
+        roleRepository.save(role);
+
+        User user1 = new User("test@example.com", "password", role);
+        userRepository.save(user1);
+
+        User user2 = new User("test@example.com", "password", role);
+
+        assertThrows(Exception.class, () -> userRepository.save(user2));
+    }
+    @Test
+    void testUserRoleSavedCorrectly() {
+        Role role = new Customer();
+        roleRepository.save(role);
+
+        User user = new User("test@example.com", "password", role);
+        userRepository.save(user);
+
+        Optional<User> found = userRepository.findByEmail("test@example.com");
+        assertTrue(found.isPresent());
+        assertEquals("CUSTOMER", found.get().getRole().getName());
+    }
+
+
 }
