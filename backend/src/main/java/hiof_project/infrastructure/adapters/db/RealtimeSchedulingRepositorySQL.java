@@ -1,5 +1,5 @@
 package hiof_project.infrastructure.adapters.db;
-
+/*
 import hiof_project.domain.exception.RepositoryException;
 import hiof_project.domain.model.transport_system.RealtimeScheduling;
 import hiof_project.ports.out.RealtimeSchedulingRepository;
@@ -234,3 +234,4 @@ public class RealtimeSchedulingRepositorySQL implements RealtimeSchedulingReposi
     }
 }
 
+*/
