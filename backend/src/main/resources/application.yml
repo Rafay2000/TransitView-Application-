@@ -1,0 +1,17 @@
+# ================================
+# DATABASE (SQL Server)
+# ================================
+spring:
+  datasource:
+    url: ${AZURE_URL}
+    username: ${AZURE_DB_USER}
+    password: ${AZURE_DB_PASSWORD}
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+  # ================================
+  # JPA / Hibernate
+  # ================================
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

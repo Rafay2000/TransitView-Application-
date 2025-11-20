@@ -2,11 +2,19 @@ package hiof_project.domain.model.transport_system;
 
 import java.util.ArrayList;
 
+//Klasse som skal fortelle hvilken rute det er med tilhørende bussholdeplasser
 public class Route {
 
     private int routeId;
     private String routeName;
     private ArrayList<Stop> stops;
+
+    //Konstruktør uten bussholdeplasser
+    public Route(int routeId, String routeName) {
+        this.routeId = routeId;
+        this.routeName = routeName;
+        this.stops = new ArrayList<>();
+    }
 
     public Route(int routeId, String routeName, ArrayList<Stop> stops) {
         this.routeId = routeId;
@@ -14,7 +22,7 @@ public class Route {
         this.stops = stops;
     }
 
-    //Getters
+    //Getter.
     public int getRouteId() {
         return routeId;
     }

@@ -1,6 +1,6 @@
 package hiof_project.transport_test;
 
-import hiof_project.model.transport_system.*;
+import hiof_project.domain.model.transport_system.*;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.time.LocalDate;
@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TransportTest {
 
+    //Test område.
     @Test
     void testStop() {
         Stop stop = new Stop(1, "Fredrikstad Busstasjon", 3.5, 10, "Stopper ved Rema");
@@ -43,7 +44,7 @@ public class TransportTest {
     void testSchedule() {
         ArrayList<ScheduleTimer> timers = new ArrayList<>();
         timers.add(new ScheduleTimer(LocalTime.of(8,50), LocalTime.of(9,0)));
-        Schedule schedule = new Schedule(timers, LocalDate.of(2025,10,5));
+        Schedule schedule = new Schedule(1, timers, LocalDate.of(2025,10,5));
 
         assertEquals(1, schedule.getScheduleTimer().size());
         assertEquals(LocalTime.of(8,50), schedule.getScheduleTimer().get(0).getArrival());
@@ -59,7 +60,7 @@ public class TransportTest {
 
         ArrayList<ScheduleTimer> timers = new ArrayList<>();
         timers.add(new ScheduleTimer(LocalTime.of(8,50), LocalTime.of(9,0)));
-        Schedule schedule = new Schedule(timers, LocalDate.of(2025,10,5));
+        Schedule schedule = new Schedule(1, timers, LocalDate.of(2025,10,5));
 
         Bus bus = new Bus(1, "R4", "Bybuss - Elektrisk", 45);
         Trip trip = new Trip(1, route, schedule, bus);

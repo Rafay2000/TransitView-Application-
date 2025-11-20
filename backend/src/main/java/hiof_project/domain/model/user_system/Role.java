@@ -1,79 +1,43 @@
 package hiof_project.domain.model.user_system;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "roles")
+
+//Lagrer alle roller i samme tabell
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "role_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class Role {
 
-    private final int userId;
-    private String userName;
-    private String firstName;
-    private String lastName;
-    private String role;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    //Default role constructor for "Customer", "Admin" and "Developer"
-    public Role(int userId, String userName, String firstName, String lastname, String role) {
-        this.userId = userId;
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastname;
-        this.role = role;
+    @Column(unique = true, nullable = false)
+    private String name;
+
+    public Role() { }
+
+    public Role(String name) {
+        this.name = name;
     }
 
-    // Getters
-    public int getUserId() {
-        return userId;
-    }
+    public Long getId() { return id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    //Formats fullName and lastName in one line
-    public String getFullName() {
-        return firstName + " " + lastName;
-    }
-
-
-    // Setters
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    //Display full name with username and assigned role
+    // Viser navn og rolle til bruker
     @Override
     public String toString() {
-        return getFullName() + " | Brukernavn: " + userName + " - Rolle: " + role;
+        return "Navn: " + getName() + " | Rolle: " + getClass().getSimpleName();
     }
 
-    //Display full info on specific role made for subclasses for debugging and testing
+    // Ekstra metode for Debugging
     public String fullUserInfo() {
-        return "Role{userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", role='" + role + '\'' +
+        return "Role{ userId=" + getId() +
+                ", Name='" + getName() + '\'' +
+                ", role='" + getClass().getSimpleName() + '\'' +
                 '}';
     }
 }

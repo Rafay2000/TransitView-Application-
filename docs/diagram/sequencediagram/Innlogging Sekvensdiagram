@@ -1,0 +1,20 @@
+@startuml
+title Sekvensdiagram – Innlogging
+
+actor Bruker
+participant AuthController
+participant AuthService
+participant UserRepository
+database Database
+
+Bruker -> AuthController: POST /api/auth/login (email, password)
+AuthController -> AuthService: login(email, password)
+AuthService -> UserRepository: findByEmail(email)
+UserRepository -> Database: SELECT * FROM users WHERE email=?
+Database --> UserRepository: User (eller null)
+UserRepository --> AuthService: Optional<User>
+AuthService -> AuthService: encoder.matches(password, user.passwordHash)
+AuthService --> AuthController: true / false
+AuthController --> Bruker: "Innlogging vellykket" / "Feil e-post eller passord"
+
+@enduml

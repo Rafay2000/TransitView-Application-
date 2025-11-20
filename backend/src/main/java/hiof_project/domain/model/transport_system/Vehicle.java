@@ -1,5 +1,6 @@
 package hiof_project.domain.model.transport_system;
 
+//Absrakt klasse for en kjøretøy (per nå er det buss som er hovedmålet, evt annet som trikk, tog kan legges til senere)
 public abstract class Vehicle {
 
     private final int vehicleId;
@@ -7,7 +8,7 @@ public abstract class Vehicle {
     private String vehicleType;
     private int capacity;
 
-
+    //Kontruktør.
     public Vehicle(int vehicleId, String vehicleName, String vehicleType, int capacity) {
         this.vehicleId = vehicleId;
         this.vehicleName = vehicleName;

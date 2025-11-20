@@ -1,5 +1,6 @@
 package hiof_project.domain.model.transport_system;
 
+//Klasse som skal vise en hel tur bestående av navnet på ruten, alle tidene per bussholdeplass og type buss
 public class Trip {
 
     private int tripId;
@@ -7,6 +8,7 @@ public class Trip {
     private Schedule schedule;
     private Bus bus;
 
+    //Kontruktør.
     public Trip(int tripId, Route route, Schedule schedule, Bus bus) {
         this.tripId = tripId;
         this.route = route;

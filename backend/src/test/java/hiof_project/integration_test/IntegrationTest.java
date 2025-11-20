@@ -1,7 +1,7 @@
 package hiof_project.integration_test;
 
-import hiof_project.model.transport_system.*;
-import hiof_project.model.user_system.*;
+import hiof_project.domain.model.transport_system.*;
+import hiof_project.domain.model.user_system.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class IntegrationTest {
 
+    //test område.
     @Test
     void testFullTripScenario() {
         // Opprett stopp
@@ -31,22 +32,17 @@ public class IntegrationTest {
         timers.add(new ScheduleTimer(LocalTime.of(8,50), LocalTime.of(9,0)));
         timers.add(new ScheduleTimer(LocalTime.of(9,10), LocalTime.of(9,20)));
 
-        Schedule schedule = new Schedule(timers, LocalDate.of(2025,10,5));
+        Schedule schedule = new Schedule(1, timers, LocalDate.of(2025,10,5));
 
         Bus bus = new Bus(1, "R4", "Bybuss - Elektrisk", 45);
         Trip trip = new Trip(1, route, schedule, bus);
 
-        Customer customer = new Customer(
-                1, "johand01", "john.anderson@fakemail.com",
-                "terriblepassword123", "John", "Andersson", "Customer"
-        );
 
         // Assertions
         assertEquals(1, trip.getRoute().getRouteId());
         assertEquals("FR-GR03", trip.getRoute().getRouteName());
         assertEquals("R4", trip.getBus().getVehicleName());
         assertEquals(2, trip.getRoute().getStops().size());
-        assertEquals("John Andersson", customer.getFullName());
     }
 }
 

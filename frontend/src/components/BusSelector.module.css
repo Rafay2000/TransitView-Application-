@@ -1,0 +1,53 @@
+.selectorContainer {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  max-width: fit-content;
+  margin: 0;
+}
+
+.busOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 20px;
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+.busOption:hover {
+  border-color: #007bff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.busOption.selected {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.busOption.selected .typeLabel {
+  color: white;
+}
+
+.iconContainer {
+  margin-bottom: 5px;
+}
+
+.typeLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}

@@ -1,0 +1,71 @@
+.scheduleContainer {
+  font-family: Arial, sans-serif;
+  max-width: 100%; 
+  width: 100%;
+  margin: 30px 0; 
+  padding: 30px; 
+  background-color: white; 
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+  color: #1a1a1a;
+}
+
+.header h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: #004d99; 
+}
+
+.header h2 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.busDetails {
+  padding: 10px 0;
+  border-top: 1px solid #cceeff; 
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+  font-weight: 500;
+  color: #333;
+}
+
+.routeStop {
+  padding: 15px 0;
+}
+
+.routeStop h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: #1a1a1a;
+}
+
+.timeInfo {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.timeEntry {
+  color: #007bff;
+}
+
+.timeEntry:not(:last-child) {
+  margin-right: 15px;
+}
+
+.details {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 5px;
+}
+
+.separator {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 10px 0;
+}
