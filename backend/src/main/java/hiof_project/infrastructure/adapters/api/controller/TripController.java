@@ -29,7 +29,7 @@ import hiof_project.ports.out.ScheduleTimerRepository;
 import hiof_project.domain.exception.RepositoryException;
 
 @RestController
-@RequestMapping("/api/trips")
+@RequestMapping("/api/trips") //http://localhost:8080/api/trips
 public class TripController {
 
     private final TripRepository tripRepository;
@@ -44,35 +44,35 @@ public class TripController {
         this.scheduleTimerRepository = scheduleTimerRepository;
     }
 
-    // GET /api/trips/{tripId}
+    //Hent et bestemt tur ID fra Azure databasen (1-3)
     @GetMapping("/{tripId}")
     public ResponseEntity<TripDTO> getTripById(@PathVariable int tripId) throws RepositoryException {
-        Optional<Trip> tripOpt = tripRepository.getByTripId(tripId);
+        Optional<Trip> optTrip = tripRepository.getByTripId(tripId);
 
-        if (tripOpt.isEmpty()) {
+        if (optTrip.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
-        Trip trip = tripOpt.get();
-        TripDTO dto = mapTripToDTO(trip);
+        Trip trip = optTrip.get();
+        TripDTO newDto = mapTripToDTO(trip);
 
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(newDto);
     }
 
-    // GET /api/trips
+    //Hente alle turer fra Azure databasen
     @GetMapping
     public ResponseEntity<ArrayList<TripDTO>> getAllTrips() throws RepositoryException {
-        ArrayList<Trip> trips = tripRepository.getAllTrips();
+        ArrayList<Trip> allTrips = tripRepository.getAllTrips();
         ArrayList<TripDTO> result = new ArrayList<>();
 
-        for (Trip trip : trips) {
+        for (Trip trip : allTrips) {
             result.add(mapTripToDTO(trip));
         }
 
         return ResponseEntity.ok(result);
     }
 
-    // ===== PRIVAT MAPPER: DOMAIN -> DTO =====
+    //PRIVATE MAPPER: DOMAIN -> DTO. Skal hente stops, route, scheduletimer og schedule for å vise full oversikt
 
     private TripDTO mapTripToDTO(Trip trip) throws RepositoryException {
         Route route = trip.getRoute();
@@ -80,10 +80,10 @@ public class TripController {
         Bus bus = trip.getBus();
 
         // ---- Hent stops fra StopRepository basert på routeId ----
-        ArrayList<Stop> stops = stopRepository.getStopsByRouteId(route.getRouteId());
+        ArrayList<Stop> allStops = stopRepository.getStopsByRouteId(route.getRouteId());
         ArrayList<StopDTO> stopDTOs = new ArrayList<>();
 
-        for (Stop stop : stops) {
+        for (Stop stop : allStops) {
             stopDTOs.add(new StopDTO(
                     stop.getStopId(),
                     stop.getStopName(),
@@ -100,15 +100,14 @@ public class TripController {
         );
 
         // ---- Hent schedule timers fra ScheduleTimerRepository basert på scheduleId ----
-        ArrayList<ScheduleTimer> timers =
-                scheduleTimerRepository.getTimersByScheduleId(schedule.getScheduleId());
+        ArrayList<ScheduleTimer> allTimers = scheduleTimerRepository.getTimersByScheduleId(schedule.getScheduleId());
         ArrayList<ScheduleTimerDTO> timerDTOs = new ArrayList<>();
 
-        for (ScheduleTimer st : timers) {
+        for (ScheduleTimer hourMinutes : allTimers) {
             timerDTOs.add(new ScheduleTimerDTO(
-                    st.getScheduleTimerId(),
-                    st.getArrival(),
-                    st.getDeparture()
+                    hourMinutes.getScheduleTimerId(),
+                    hourMinutes.getArrival(),
+                    hourMinutes.getDeparture()
             ));
         }
 
