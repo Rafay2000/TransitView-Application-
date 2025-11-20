@@ -33,7 +33,8 @@ public class AuthService {
         }
 
         String hashedPassword = passwordEncoder.encode(dto.password());
-        Role defaultRole = roleRepository.findByName("CUSTOMER");
+        Role defaultRole = roleRepository.findByName("CUSTOMER")
+                .orElseThrow(() -> new RuntimeException("Default role CUSTOMER not found"));
 
         // Oppretter bruker med CUSTOMER som basis-rolle
         User user = new User(dto.email(), hashedPassword, defaultRole);
@@ -55,6 +56,17 @@ public class AuthService {
             throw new IllegalArgumentException(errorMessage);
         }
         return true;
+    }
+
+    public User  changeUserRole(Long userId, String roleName) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Ugyldig bruker"));
+
+        Role newRole = roleRepository.findByName(roleName)
+                .orElseThrow(() -> new RuntimeException(roleName + " er en ugyldig rolle"));
+
+        user.setRole(newRole);
+        return userRepository.save(user);
     }
 }
 

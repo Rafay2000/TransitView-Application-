@@ -1,5 +1,6 @@
 package hiof_project.ports.in;
 
+import hiof_project.infrastructure.adapters.api.dto.ChangeRoleDTO;
 import hiof_project.infrastructure.adapters.api.dto.LoginDTO;
 import hiof_project.infrastructure.adapters.api.dto.RegisterDTO;
 import hiof_project.domain.service.AuthService;
@@ -38,6 +39,18 @@ public class AuthController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(e.getMessage());
+        }
+    }
+
+    @PatchMapping("/users/{id}/role")
+    public ResponseEntity<?> updateUserRole(@PathVariable Long id, @RequestBody ChangeRoleDTO dto) {
+        try {
+            authService.changeUserRole(id, dto.roleName());
+            return ResponseEntity.ok("Rolle opdatert til: " + dto.roleName());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Uventet feil oppsto");
         }
     }
 }

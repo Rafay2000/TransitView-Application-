@@ -28,6 +28,12 @@ public class RouteRepositorySQL implements RouteRepository {
             preparedStatement.setInt(1, route.getRouteId());
             preparedStatement.setString(2, route.getRouteName());
             preparedStatement.executeUpdate();
+
+            //Lagre bussholdeplasser etter at ruten er lagret
+            StopRepository stopRepo = new StopRepositorySQL(connection);
+            for (Stop stop : route.getStops()) {
+                stopRepo.createStop(stop, route.getRouteId());  //Lagre hvert bussholdeplass med route_id
+            }
         } catch (SQLException e) {
             throw new RepositoryException("ERROR: Could not create route in database", e);
         }
@@ -53,6 +59,12 @@ public class RouteRepositorySQL implements RouteRepository {
             preparedStatement.setString(1, route.getRouteName());
             preparedStatement.setInt(2, route.getRouteId());
             preparedStatement.executeUpdate();
+
+            //Lagre bussholdeplasser etter at ruten er lagret
+            StopRepository stopRepoUpdated = new StopRepositorySQL(connection);
+            for (Stop stop : route.getStops()) {
+                stopRepoUpdated.updateStop(stop, route.getRouteId());  //Oppdater hvert bussholdeplass med route_id
+            }
         } catch (SQLException e) {
             throw new RepositoryException("ERROR: Could not update route in database", e);
         }
