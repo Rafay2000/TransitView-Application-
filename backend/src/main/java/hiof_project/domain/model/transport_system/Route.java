@@ -9,6 +9,13 @@ public class Route {
     private String routeName;
     private ArrayList<Stop> stops;
 
+    //Konstruktør uten bussholdeplasser
+    public Route(int routeId, String routeName) {
+        this.routeId = routeId;
+        this.routeName = routeName;
+        this.stops = new ArrayList<>();
+    }
+
     public Route(int routeId, String routeName, ArrayList<Stop> stops) {
         this.routeId = routeId;
         this.routeName = routeName;
