@@ -9,14 +9,16 @@ public class RealtimeSchedulingDTO {
     private final int stopId;
     private final LocalTime updatedDeparture;
     private final LocalTime updatedArrival;
+    private final String status;
 
     public RealtimeSchedulingDTO(int realtimeId, int tripId, int stopId,
-                                 LocalTime updatedDeparture, LocalTime updatedArrival) {
+                                 LocalTime updatedDeparture, LocalTime updatedArrival, String status) {
         this.realtimeId = realtimeId;
         this.tripId = tripId;
         this.stopId = stopId;
         this.updatedDeparture = updatedDeparture;
         this.updatedArrival = updatedArrival;
+        this.status = status;
     }
 
     public int getRealtimeId() {
@@ -37,5 +39,9 @@ public class RealtimeSchedulingDTO {
 
     public LocalTime getUpdatedArrival() {
         return updatedArrival;
+    }
+
+    public String status() {
+        return status;
     }
 }
