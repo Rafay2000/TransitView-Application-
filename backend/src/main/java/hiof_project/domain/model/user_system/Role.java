@@ -3,6 +3,7 @@ package hiof_project.domain.model.user_system;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "roles")
 
 //Lagrer alle roller i samme tabell
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
