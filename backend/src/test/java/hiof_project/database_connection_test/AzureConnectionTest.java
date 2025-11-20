@@ -1,5 +1,6 @@
 package hiof_project.database_connection_test;
 
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
@@ -9,6 +10,8 @@ import java.sql.Statement;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Denne testen er ment som en manuell/verifiserende test av Azure-tilkobling.
+// Må kjøres på lokale maskinen der AZURE_URL, AZURE_DB_USER og AZURE_DB_PASSWORD er satt som environment variables.
 class AzureConnectionTest {
 
     @Test
@@ -16,6 +19,10 @@ class AzureConnectionTest {
         String url = System.getenv("AZURE_URL"); //Hentes fra Microsoft Powershell på PCen, for sikkerhet
         String user = System.getenv("AZURE_DB_USER"); //Hentes fra Microsoft Powershell på PCen, for sikkerhet
         String pass = System.getenv("AZURE_DB_PASSWORD"); //Hentes fra Microsoft Powershell på PCen, for sikkerhet
+
+        //Hvis URL, PASSWORD OG USER ikke er satt opp i env variables, hopp over testen istedenfor for å gi feil
+        Assumptions.assumeTrue(url != null && user != null && pass != null,
+                "Azure env vars not set – skipping Azure connection test");
 
         //Sjekk at environment variable faktisk er satt opp
         assertNotNull(url, "AZURE_URL is missing – set it as env variable");
