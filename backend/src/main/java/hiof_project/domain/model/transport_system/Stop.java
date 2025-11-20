@@ -1,5 +1,6 @@
 package hiof_project.domain.model.transport_system;
 
+//Klasse som skal vise frem bussholdeplass navn med nødvendig detaljer for brukervennlighet
 public class Stop {
 
     private final int stopId;
@@ -8,6 +9,7 @@ public class Stop {
     private int timeToNextStop;
     private String descriptionNextStop;
 
+    //Kontruktør.
     public Stop(int stopId, String stopName) {
         this.stopId = stopId;
         this.stopName = stopName;
@@ -41,6 +43,10 @@ public class Stop {
         return descriptionNextStop;
     }
 
+    public void setStopName(String stopName) {
+        this.stopName = stopName;
+    }
+
     public void setDistanceInKm(double distanceInKm) {
         this.distanceInKm = distanceInKm;
     }
@@ -66,7 +72,6 @@ public class Stop {
                 + "**(Estimert kjøretur " + timeToNextStop + " min / "
                 + distanceInKm + " KM avstand / " + desc + ")**";
     }
-
 
     public String fullStopInfo() {
         return "Stop{" +

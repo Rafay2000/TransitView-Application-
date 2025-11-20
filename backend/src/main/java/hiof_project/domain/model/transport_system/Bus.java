@@ -1,8 +1,9 @@
 package hiof_project.domain.model.transport_system;
 
+//Klasse som skal ha informasjonen om bussen
 public class Bus extends Vehicle {
 
-    //Bus constructor
+    //Bus konstruktør.
     public Bus (int vehicleId, String vehicleName, String vehicleType, int capacity) {
         super(vehicleId, vehicleName, vehicleType, capacity);
     }
@@ -12,8 +13,6 @@ public class Bus extends Vehicle {
     public String toString() {
         return getVehicleName() + " | Buss type: " + getVehicleType() + " | " + getCapacity() + " seter";
     }
-
-
 
     //Display bus info for debugging, testing and verification
     public String fullVehicleInfo() {

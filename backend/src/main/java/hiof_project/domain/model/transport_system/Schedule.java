@@ -3,15 +3,22 @@ package hiof_project.domain.model.transport_system;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
+//Klasse som skal inneholde hver ankomst og avriser tider i rekkefølge for et gitt rute
 public class Schedule {
 
+    private int scheduleId;
     private ArrayList<ScheduleTimer> scheduleTimer;
     private LocalDate definedDate;
 
-    public Schedule(ArrayList<ScheduleTimer> scheduleTimer, LocalDate definedDate) {
+    //Kontruktør.
+    public Schedule(int scheduleId, ArrayList<ScheduleTimer> scheduleTimer, LocalDate definedDate) {
+        this.scheduleId = scheduleId;
         this.scheduleTimer = scheduleTimer;
         this.definedDate = definedDate;
+    }
+
+    public int getScheduleId() {
+        return scheduleId;
     }
 
     public ArrayList<ScheduleTimer> getScheduleTimer() {
