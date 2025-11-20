@@ -60,4 +60,22 @@ public class StopController {
 
         return ResponseEntity.ok(newDto);
     }
+
+    //Hent alle bussholdeplasser på et bestemt rute ID fra Azure databasen (1-3)
+    @GetMapping("/route/{routeId}") //http://localhost:8080/api/stops/route/
+    public ArrayList<StopDTO> getStopsByRouteId(@PathVariable int routeId) throws RepositoryException {
+        ArrayList<Stop> allStops = stopRepository.getStopsByRouteId(routeId);
+        ArrayList<StopDTO> result = new ArrayList<>();
+
+        for (Stop stop : allStops) {
+            result.add(new StopDTO(
+                    stop.getStopId(),
+                    stop.getStopName(),
+                    stop.getDistanceInKm(),
+                    stop.getTimeToNextStop(),
+                    stop.getDescriptionNextStop()
+            ));
+        }
+        return result;
+    }
 }
