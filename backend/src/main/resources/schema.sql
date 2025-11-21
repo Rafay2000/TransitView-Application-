@@ -1,10 +1,8 @@
-
 -- Tabell for ruter
 CREATE TABLE Routes (
     route_id INT PRIMARY KEY,
     route_name NVARCHAR(55) NOT NULL
 );
-
 
 -- Tabell for busser
 CREATE TABLE Buses (
@@ -63,11 +61,3 @@ CREATE TABLE RealtimeScheduling (
     CONSTRAINT FK_RealTimeOn_Trip FOREIGN KEY (trip_id) REFERENCES Trips(trip_id),
     CONSTRAINT FK_RealTimeOn_Stop FOREIGN KEY (stop_id) REFERENCES Stops(stop_id)
 );
-
-SELECT * FROM Trips;
-SELECT * FROM Routes;
-SELECT * FROM Stops;
-SELECT * FROM Schedules;
-SELECT * FROM ScheduleTimers;
-SELECT * FROM RealtimeScheduling;
-SELECT * FROM Bus;

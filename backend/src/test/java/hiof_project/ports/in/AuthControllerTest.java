@@ -1,6 +1,7 @@
 package hiof_project.ports.in;
 
 import hiof_project.domain.service.AuthService;
+import hiof_project.infrastructure.adapters.api.controller.AuthController;
 import hiof_project.infrastructure.adapters.api.dto.RegisterDTO;
 
 import org.junit.jupiter.api.Test;

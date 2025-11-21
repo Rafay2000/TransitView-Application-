@@ -8,16 +8,29 @@ public class RealtimeScheduling {
     private int realtimeId;             // PK i databasen
     private int tripId;         // FK til Trip
     private int stopId;         // FK til Stop
-    private LocalTime updatedDeparture;
     private LocalTime updatedArrival;
+    private LocalTime updatedDeparture;
+    private String status;
 
-    // Konstruktør for sanntid oppdatering.
-    public RealtimeScheduling(int realtimeId, int tripId, int stopId, LocalTime updatedDeparture, LocalTime updatedArrival) {
+    //Konstruktør uten realtimeId (brukes når vi lager ny oppføring uten å angi IDen)
+    public RealtimeScheduling(int tripId, int stopId,
+                              LocalTime updatedArrival, LocalTime updatedDeparture, String status) {
+        this.tripId = tripId;
+        this.stopId = stopId;
+        this.updatedArrival = updatedArrival;
+        this.updatedDeparture = updatedDeparture;
+        this.status = status;
+    }
+
+    //Konstruktør for sanntid oppdatering. Angi IDen
+    public RealtimeScheduling(int realtimeId, int tripId, int stopId,
+                              LocalTime updatedArrival, LocalTime updatedDeparture, String status) {
         this.realtimeId = realtimeId;
         this.tripId = tripId;
         this.stopId = stopId;
-        this.updatedDeparture = updatedDeparture;
         this.updatedArrival = updatedArrival;
+        this.updatedDeparture = updatedDeparture;
+        this.status = status;
     }
 
     // Gettere og settere
@@ -33,12 +46,16 @@ public class RealtimeScheduling {
         return stopId;
     }
 
+    public LocalTime getUpdatedArrival() {
+        return updatedArrival;
+    }
+
     public LocalTime getUpdatedDeparture() {
         return updatedDeparture;
     }
 
-    public LocalTime getUpdatedArrival() {
-        return updatedArrival;
+    public String getStatus() {
+        return status;
     }
 
     public void setRealtimeId(int realtimeId) {
@@ -53,12 +70,16 @@ public class RealtimeScheduling {
         this.stopId = stopId;
     }
 
+    public void setUpdatedArrival(LocalTime updatedArrival) {
+        this.updatedArrival = updatedArrival;
+    }
+
     public void setUpdatedDeparture(LocalTime updatedDeparture) {
         this.updatedDeparture = updatedDeparture;
     }
 
-    public void setUpdatedArrival(LocalTime updatedArrival) {
-        this.updatedArrival = updatedArrival;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
