@@ -91,7 +91,8 @@ public class RealtimeSchedulingController {
                 rs.getTripId(),
                 rs.getStopId(),
                 rs.getUpdatedDeparture(),
-                rs.getUpdatedArrival()
+                rs.getUpdatedArrival(),
+                rs.getStatus()
         );
     }
 }
