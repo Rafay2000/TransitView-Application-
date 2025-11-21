@@ -1,4 +1,4 @@
-package hiof_project.ports.in;
+package hiof_project.infrastructure.adapters.api.controller;
 
 import hiof_project.infrastructure.adapters.api.dto.ChangeRoleDTO;
 import hiof_project.infrastructure.adapters.api.dto.LoginDTO;
