@@ -41,7 +41,7 @@ public class RealtimeSchedulingDTO {
         return updatedArrival;
     }
 
-    public String status() {
+    public String getStatus() {
         return status;
     }
 }
