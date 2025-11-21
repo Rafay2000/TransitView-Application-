@@ -5,11 +5,13 @@ import hiof_project.domain.model.ticket_system.TicketStatus;
 import hiof_project.infrastructure.adapters.api.dto.TicketRequestDTO;
 import hiof_project.infrastructure.adapters.api.dto.TicketResponseDTO;
 import hiof_project.ports.out.TicketRepository;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 // Håndterer billett-operasjoner
+@Service
 public class TicketService {
     private final TicketRepository repository;
     public TicketService(TicketRepository repository) {

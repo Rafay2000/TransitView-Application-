@@ -26,14 +26,14 @@ public class TicketController {
     // Endepunkt for å opprette billett
     @PostMapping
     public TicketResponseDTO createTicket(@RequestBody TicketRequestDTO request) {
-        Long userId = getUserIdFromSecurity();
-        return service.createTicket(userId, request);
+        Long fakeUserId = 1L;
+        return service.createTicket(fakeUserId, request);
     }
 
     // Endepunkt for henting av eksisterende billett
     @GetMapping
     public List<TicketResponseDTO> getMyTickets() {
-        Long userId = getUserIdFromSecurity();
-        return service.getTicketsForUser(userId);
+        Long fakeUserId = 1L;
+        return service.getTicketsForUser(fakeUserId);
     }
 }
