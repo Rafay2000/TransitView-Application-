@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class TripRepositorySQL implements TripRepository{
+public class TripRepositorySQL implements TripRepository {
 
     private Connection connection;
 

@@ -5,6 +5,7 @@ import hiof_project.ports.out.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+// Automatisk opprettelse av data til database
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -14,6 +15,7 @@ public class DataLoader implements CommandLineRunner {
         this.roleRepository = roleRepository;
     }
 
+    // Oppretter roller i rolle-tabell kun hvis det ikke eksisterer roller der allerede
     @Override
     public void run(String... args) {
         if (roleRepository.count() == 0) {

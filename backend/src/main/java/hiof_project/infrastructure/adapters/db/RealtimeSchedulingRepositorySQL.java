@@ -20,13 +20,14 @@ public class RealtimeSchedulingRepositorySQL implements RealtimeSchedulingReposi
     @Override
     public void createUpdatedTime(RealtimeScheduling update) throws RepositoryException {
         String sql = "INSERT INTO RealtimeScheduling (trip_id, stop_id, updated_arrival, updated_departure, status) " +
-                "VALUES (?, ?, ?, ?, NULL)";
+                "VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, update.getTripId());
             preparedStatement.setInt(2, update.getStopId());
             preparedStatement.setTime(3, Time.valueOf(update.getUpdatedArrival()));
             preparedStatement.setTime(4, Time.valueOf(update.getUpdatedDeparture()));
+            preparedStatement.setString(5, update.getStatus());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RepositoryException("ERROR: Could not create realtime schedule in database", e);
@@ -49,14 +50,15 @@ public class RealtimeSchedulingRepositorySQL implements RealtimeSchedulingReposi
     @Override
     public void updateUpdatedTime(RealtimeScheduling update) throws RepositoryException {
         String sql = "UPDATE RealtimeScheduling SET trip_id = ?, stop_id = ?, " +
-                "updated_arrival = ?, updated_departure = ? WHERE realtime_id = ?";
+                "updated_arrival = ?, updated_departure = ?, status = ? WHERE realtime_id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, update.getTripId());
             preparedStatement.setInt(2, update.getStopId());
             preparedStatement.setTime(3, Time.valueOf(update.getUpdatedArrival()));
             preparedStatement.setTime(4, Time.valueOf(update.getUpdatedDeparture()));
-            preparedStatement.setInt(5, update.getRealtimeId());
+            preparedStatement.setString(5, update.getStatus());
+            preparedStatement.setInt(6, update.getRealtimeId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RepositoryException("ERROR: Could not update realtime schedule in database", e);
@@ -77,7 +79,7 @@ public class RealtimeSchedulingRepositorySQL implements RealtimeSchedulingReposi
 
     @Override
     public Optional<RealtimeScheduling> getByUpdatedTimeId(int realtimeId) throws RepositoryException {
-        String sql = "SELECT realtime_id, trip_id, stop_id, updated_arrival, updated_departure " +
+        String sql = "SELECT realtime_id, trip_id, stop_id, updated_arrival, updated_departure, status " +
                 "FROM RealtimeScheduling WHERE realtime_id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -95,12 +97,15 @@ public class RealtimeSchedulingRepositorySQL implements RealtimeSchedulingReposi
                 LocalTime updatedArrival = arrTime != null ? arrTime.toLocalTime() : null;
                 LocalTime updatedDeparture = depTime != null ? depTime.toLocalTime() : null;
 
+                String status = resultSet.getString("status");
+
                 RealtimeScheduling realtime = new RealtimeScheduling(
                         id,
                         tripId,
                         stopId,
+                        updatedArrival,
                         updatedDeparture,
-                        updatedArrival
+                        status
                 );
                 return Optional.of(realtime);
             } else {
@@ -113,7 +118,8 @@ public class RealtimeSchedulingRepositorySQL implements RealtimeSchedulingReposi
 
     @Override
     public ArrayList<RealtimeScheduling> getAllUpdatedTime() throws RepositoryException {
-        String sql = "SELECT realtime_id, trip_id, stop_id, updated_arrival, updated_departure FROM RealtimeScheduling";
+        String sql = "SELECT realtime_id, trip_id, stop_id, updated_arrival, updated_departure, status " +
+                "FROM RealtimeScheduling";
         ArrayList<RealtimeScheduling> result = new ArrayList<>();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -130,12 +136,15 @@ public class RealtimeSchedulingRepositorySQL implements RealtimeSchedulingReposi
                 LocalTime updatedArrival = arrTime != null ? arrTime.toLocalTime() : null;
                 LocalTime updatedDeparture = depTime != null ? depTime.toLocalTime() : null;
 
+                String status = resultSet.getString("status");
+
                 RealtimeScheduling realtime = new RealtimeScheduling(
                         id,
                         tripId,
                         stopId,
+                        updatedArrival,
                         updatedDeparture,
-                        updatedArrival
+                        status
                 );
                 result.add(realtime);
             }
@@ -148,7 +157,7 @@ public class RealtimeSchedulingRepositorySQL implements RealtimeSchedulingReposi
 
     @Override
     public Optional<RealtimeScheduling> findUpdatedScheduleByTripAndStop(int tripId, int stopId) throws RepositoryException {
-        String sql = "SELECT TOP 1 realtime_id, trip_id, stop_id, updated_arrival, updated_departure " +
+        String sql = "SELECT TOP 1 realtime_id, trip_id, stop_id, updated_arrival, updated_departure, status " +
                 "FROM RealtimeScheduling WHERE trip_id = ? AND stop_id = ? ORDER BY realtime_id DESC";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -164,12 +173,15 @@ public class RealtimeSchedulingRepositorySQL implements RealtimeSchedulingReposi
                 LocalTime updatedArrival = arrTime != null ? arrTime.toLocalTime() : null;
                 LocalTime updatedDeparture = depTime != null ? depTime.toLocalTime() : null;
 
+                String status = resultSet.getString("status");
+
                 RealtimeScheduling realtime = new RealtimeScheduling(
                         id,
                         tripId,
                         stopId,
+                        updatedArrival,
                         updatedDeparture,
-                        updatedArrival
+                        status
                 );
                 return Optional.of(realtime);
             } else {
@@ -183,7 +195,7 @@ public class RealtimeSchedulingRepositorySQL implements RealtimeSchedulingReposi
 
     @Override
     public ArrayList<RealtimeScheduling> findAllUpdatedScheduleByTrip(int tripId) throws RepositoryException {
-        String sql = "SELECT realtime_id, trip_id, stop_id, updated_arrival, updated_departure " +
+        String sql = "SELECT realtime_id, trip_id, stop_id, updated_arrival, updated_departure, status " +
                 "FROM RealtimeScheduling WHERE trip_id = ? ORDER BY realtime_id DESC";
 
         ArrayList<RealtimeScheduling> result = new ArrayList<>();
@@ -202,12 +214,15 @@ public class RealtimeSchedulingRepositorySQL implements RealtimeSchedulingReposi
                 LocalTime updatedArrival = arrTime != null ? arrTime.toLocalTime() : null;
                 LocalTime updatedDeparture = depTime != null ? depTime.toLocalTime() : null;
 
+                String status = resultSet.getString("status");
+
                 RealtimeScheduling realtime = new RealtimeScheduling(
                         id,
                         tripId,
                         stopId,
+                        updatedArrival,
                         updatedDeparture,
-                        updatedArrival
+                        status
                 );
                 result.add(realtime);
             }
@@ -218,4 +233,3 @@ public class RealtimeSchedulingRepositorySQL implements RealtimeSchedulingReposi
         }
     }
 }
-

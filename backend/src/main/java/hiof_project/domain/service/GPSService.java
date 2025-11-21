@@ -3,7 +3,7 @@ package hiof_project.domain.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-@Service
+// @Service
 public class GPSService {
 
     private final RestTemplate restTemplate;
